@@ -9,7 +9,8 @@
         @import url('https://fonts.googleapis.com/css2?family=Times+New+Roman&display=swap');
         
         * { box-sizing: border-box; }
-        body { font-family: 'Times New Roman', Times, serif; background-color: #f3f4f6; margin: 0; padding: 0; }
+        /* Dark Mode Body */
+        body { font-family: 'Times New Roman', Times, serif; background-color: #121212; color: #e0e0e0; margin: 0; padding: 0; }
         
         #report table { border-spacing: 0; border-collapse: collapse; width: 100%; }
         #report td { padding-top: 2px; padding-bottom: 2px; line-height: 1.5; vertical-align: top; }
@@ -17,32 +18,23 @@
 
         .report-container { width: 100%; padding: 10px; display: flex; justify-content: center; overflow: hidden; }
 
+        /* Kertas Laporan tetap Putih agar sesuai hasil Cetak PDF */
         .report-page {
             background: white; width: 210mm; min-height: 297mm;
             padding: 20mm; margin: 10px auto;
-            box-shadow: 0 0 15px rgba(0,0,0,0.2);
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
             font-size: 11pt; line-height: 1.4; color: black;
             position: relative; transform-origin: top center;
         }
 
         /* Preview Full Layar HP */
         @media screen and (max-width: 210mm) {
-            .report-container {
-                padding: 0; /* Hilangkan padding agar kertas menyentuh tepi layar */
-                overflow-x: hidden; /* Cegah geser kanan-kiri */
-            }
-
+            .report-container { padding: 0; overflow-x: hidden; }
             .report-page {
-                /* Scale dihitung agar lebar 210mm pas dengan 100% lebar jendela (vw) */
                 transform: scale(calc(100vw / 210mm)); 
-                
-                /* Mengatur titik poros skala di kiri atas agar tidak melayang ke tengah */
                 transform-origin: top left; 
-                
-                /* Koreksi margin agar tidak ada ruang kosong besar di bawah akibat scaling */
                 margin: 0;
                 margin-bottom: calc(-297mm * (1 - (100vw / 210mm))); 
-                
                 border-radius: 0;
                 box-shadow: none;
             }
@@ -60,26 +52,27 @@
             }
         }
 
-        .input-group label { display: block; font-size: 0.75rem; font-weight: bold; color: #4a5568; margin-bottom: 2px; }
+        /* Dark Mode Input Groups */
+        .input-group label { display: block; font-size: 0.75rem; font-weight: bold; color: #bbb; margin-bottom: 2px; }
         .input-group input, .input-group textarea, .input-group select { 
-            width: 100%; border: 1px solid #cbd5e0; padding: 10px; border-radius: 6px; font-family: sans-serif; font-size: 1rem; 
+            width: 100%; background-color: #1e1e1e; border: 1px solid #333; color: #fff;
+            padding: 10px; border-radius: 6px; font-family: sans-serif; font-size: 1rem; 
         }
         
-        /* Style untuk preview foto */
         #img_preview { max-width: 100%; max-height: 300px; margin: 10px 0; border: 1px solid #ddd; object-fit: contain; }
         .hidden-element { display: none; }
     </style>
 </head>
-<body class="bg-gray-100">
+<body>
 
-    <div class="no-print max-w-6xl mx-auto p-4 md:p-6 bg-white my-4 md:my-8 rounded-xl shadow-lg border-t-4 border-blue-600">
-        <h2 class="text-xl md:text-2xl font-bold mb-6 text-blue-800 border-b pb-2 flex items-center">
+    <div class="no-print max-w-6xl mx-auto p-4 md:p-6 bg-[#1e1e1e] my-4 md:my-8 rounded-xl shadow-2xl border-t-4 border-blue-600">
+        <h2 class="text-xl md:text-2xl font-bold mb-6 text-blue-400 border-b border-gray-700 pb-2 flex items-center">
             <span class="mr-2">🌾</span> Sistem Laporan Digital PPL Indonesia
         </h2>
         
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div class="space-y-3 bg-gray-50 p-4 rounded-lg border">
-                <h3 class="font-bold text-blue-700 text-xs uppercase tracking-wider border-b pb-1">I. Identitas Penyuluh</h3>
+            <div class="space-y-3 bg-[#252525] p-4 rounded-lg border border-gray-800">
+                <h3 class="font-bold text-blue-400 text-xs uppercase tracking-wider border-b border-gray-700 pb-1">I. Identitas Penyuluh</h3>
                 <div class="input-group"><label>Nama Penyuluh</label><input type="text" id="in_nama" oninput="updateLaporan()" placeholder="ABDUL RAHMAN, SP"></div>
                 <div class="input-group"><label>NIP</label><input type="text" id="in_nip" oninput="updateLaporan()" placeholder="19900920 ....."></div>
                 <div class="input-group">
@@ -118,8 +111,8 @@
                 <div class="input-group"><label>Unit Kerja</label><input type="text" id="in_unit" oninput="updateLaporan()" value="Kementerian Pertanian RI"></div>
             </div>
 
-            <div class="space-y-3 bg-gray-50 p-4 rounded-lg border">
-                <h3 class="font-bold text-blue-700 text-xs uppercase tracking-wider border-b pb-1">II. Detail Pelaksanaan</h3>
+            <div class="space-y-3 bg-[#252525] p-4 rounded-lg border border-gray-800">
+                <h3 class="font-bold text-blue-400 text-xs uppercase tracking-wider border-b border-gray-700 pb-1">II. Detail Pelaksanaan</h3>
                 <div class="input-group">
                     <label>Nama Kegiatan</label>
                     <select id="in_kegiatan" onchange="updateLaporan()">
@@ -137,12 +130,12 @@
                 </div>
                 <div class="input-group"><label>Lokasi (Desa/Poktan)</label><input type="text" id="in_lokasi" oninput="updateLaporan()" placeholder="Contoh: Lahan Poktan Sukamaju"></div>
                 <div class="input-group"><label>Jumlah Peserta</label><input type="text" id="in_peserta" oninput="updateLaporan()" placeholder="Cth.: 15 Orang"></div>
-                <div class="input-group"><label>Foto Kegiatan (Opsional)</label><input type="file" id="in_foto" accept="image/*" onchange="handleFoto(this)"></div>
+                <div class="input-group"><label>Foto Kegiatan (Opsional)</label><input type="file" id="in_foto" accept="image/*" onchange="handleFoto(this)" class="text-xs"></div>
                 <div class="input-group"><label>Tempat TTD</label><input type="text" id="in_tempat_ttd" oninput="updateLaporan()" value="Bola"></div>
             </div>
 
-            <div class="space-y-3 bg-orange-50 p-4 rounded-lg border border-orange-200">
-                <h3 class="font-bold text-orange-700 text-xs uppercase tracking-wider border-b pb-1">IV. Pengesahan</h3>
+            <div class="space-y-3 bg-[#2d251d] p-4 rounded-lg border border-orange-900/30">
+                <h3 class="font-bold text-orange-400 text-xs uppercase tracking-wider border-b border-orange-900/30 pb-1">IV. Pengesahan</h3>
                 <div class="input-group"><label>Jabatan Penandatangan</label><input type="text" id="in_koor_jabatan" oninput="updateLaporan()" value="Tulis Jabatan"></div>
                 <div class="input-group"><label>Nama Pejabat</label><input type="text" id="in_koor_nama" oninput="updateLaporan()" value="Tulis Nama"></div>
                 <div class="input-group"><label>NIP Pejabat</label><input type="text" id="in_koor_nip" oninput="updateLaporan()" value="Tulis NIP"></div>
@@ -151,8 +144,8 @@
 
         <div class="mt-6 space-y-4">
             <div class="flex justify-between items-center">
-                <h3 class="font-bold text-blue-700 text-xs uppercase tracking-wider">III. Isi Laporan (AI Powered)</h3>
-                <button onclick="generateAI()" id="btn-ai" class="bg-purple-600 text-white text-xs font-bold py-2 px-6 rounded-full shadow-md">
+                <h3 class="font-bold text-purple-400 text-xs uppercase tracking-wider">III. Isi Laporan (AI Powered)</h3>
+                <button onclick="generateAI()" id="btn-ai" class="bg-purple-600 hover:bg-purple-700 text-white text-xs font-bold py-2 px-6 rounded-full shadow-md transition">
                     <span id="loader" class="hidden">🌀</span> ✨ Generate Otomatis
                 </button>
             </div>
@@ -164,8 +157,8 @@
         </div>
 
         <div class="mt-8 flex flex-col md:flex-row gap-4">
-            <button onclick="updateLaporan()" class="w-full bg-blue-600 text-white font-bold py-3 rounded-lg shadow">Update Preview</button>
-            <button onclick="window.print()" class="w-full bg-green-600 text-white font-bold py-3 rounded-lg shadow">🖨️ Cetak / Simpan PDF</button>
+            <button onclick="updateLaporan()" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-lg shadow-lg">Update Preview</button>
+            <button onclick="window.print()" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 rounded-lg shadow-lg">🖨️ Cetak / Simpan PDF</button>
         </div>
     </div>
 
@@ -226,14 +219,9 @@
             const img = document.getElementById('img_preview');
             if (input.files && input.files[0]) {
                 const reader = new FileReader();
-                reader.onload = function(e) {
-                    img.src = e.target.result;
-                    container.classList.remove('hidden-element');
-                };
+                reader.onload = (e) => { img.src = e.target.result; container.classList.remove('hidden-element'); };
                 reader.readAsDataURL(input.files[0]);
-            } else {
-                container.classList.add('hidden-element');
-            }
+            } else { container.classList.add('hidden-element'); }
         }
 
         function updateLaporan() {
@@ -247,7 +235,6 @@
                 if (document.getElementById('out_' + f)) document.getElementById('out_' + f).innerText = val;
                 if(f === 'nama') {
                     document.getElementById('sig_nama').innerText = val;
-                    // DINAMIS: Update Nama File PDF via Judul Dokumen
                     document.title = (val !== '-' ? val : "Penyuluh") + " - " + tglStr;
                 }
                 if(f === 'nip') document.getElementById('sig_nip').innerText = val;
@@ -299,7 +286,6 @@
             } catch (e) { alert("Gagal mengambil data AI."); } 
             finally { btn.disabled = false; loader.classList.add('hidden'); }
         }
-
         window.onload = updateLaporan;
     </script>
 </body>
