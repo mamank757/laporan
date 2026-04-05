@@ -5,75 +5,67 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Generator Laporan Digital PPL - BPP Bola</title>
     <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Times+New+Roman&display=swap');
-    
-    /* Global Reset agar perhitungan lebar akurat */
-    * { box-sizing: border-box; }
-
-    body { font-family: 'Times New Roman', Times, serif; background-color: #f3f4f6; margin: 0; padding: 0; }
-    
-    #report table { border-spacing: 0; border-collapse: collapse; width: 100%; }
-    #report td { padding-top: 2px; padding-bottom: 2px; line-height: 1.5; vertical-align: top; }
-    #report td:last-child { text-align: justify; }
-
-    /* Container untuk layar (Mobile Friendly) */
-    .report-container { 
-        width: 100%; 
-        overflow-x: auto; /* Memungkinkan scroll horizontal di HP agar tidak hancur */
-        padding: 10px; 
-        display: flex;
-        justify-content: center;
-    }
-
-    /* Ukuran Kertas A4 */
-    .report-page {
-        background: white; 
-        width: 210mm; /* Lebar Standar A4 */
-        min-height: 297mm;
-        padding: 20mm; /* Margin dalam kertas */
-        margin: 10px auto;
-        box-shadow: 0 0 15px rgba(0,0,0,0.2);
-        font-size: 11pt; 
-        line-height: 1.4; 
-        color: black;
-        position: relative;
-    }
-
-    /* Pengaturan Khusus Cetak */
-    @media print {
-        @page {
-            size: A4;
-            margin: 0; /* Menghilangkan header/footer otomatis browser */
-        }
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Times+New+Roman&display=swap');
         
-        .no-print { display: none !important; }
+        * { box-sizing: border-box; }
+        body { font-family: 'Times New Roman', Times, serif; background-color: #f3f4f6; margin: 0; padding: 0; }
         
-        body { background: white !important; }
-        
+        #report table { border-spacing: 0; border-collapse: collapse; width: 100%; }
+        #report td { padding-top: 2px; padding-bottom: 2px; line-height: 1.5; vertical-align: top; }
+        #report td:last-child { text-align: justify; }
+
         .report-container { 
-            padding: 0 !important; 
-            margin: 0 !important; 
-            display: block !important;
+            width: 100%; 
+            padding: 10px; 
+            display: flex;
+            justify-content: center;
+            overflow: hidden; 
         }
 
         .report-page {
-            margin: 0 !important;
-            border: none !important;
-            box-shadow: none !important;
-            width: 210mm !important; /* Kunci ukuran agar tidak melar */
-            min-height: 297mm !important;
-            padding: 15mm !important; /* Sesuaikan margin saat cetak */
-            page-break-after: always;
+            background: white; 
+            width: 210mm; 
+            min-height: 297mm;
+            padding: 20mm; 
+            margin: 10px auto;
+            box-shadow: 0 0 15px rgba(0,0,0,0.2);
+            font-size: 11pt; 
+            line-height: 1.4; 
+            color: black;
+            position: relative;
+            transform-origin: top center;
         }
-    }
 
-    /* Form Input agar rapi di HP */
-    .input-group label { display: block; font-size: 0.75rem; font-weight: bold; color: #4a5568; margin-bottom: 2px; }
-    .input-group input, .input-group textarea, .input-group select { 
-        width: 100%; border: 1px solid #cbd5e0; padding: 10px; border-radius: 6px; font-family: sans-serif; font-size: 1rem; 
-    }
-</style>
+        @media screen and (max-width: 210mm) {
+            .report-page {
+                transform: scale(calc(100vw / 230mm)); 
+                margin-bottom: calc(-297mm * (1 - (100vw / 230mm))); 
+            }
+        }
+
+        @media print {
+            @page { size: A4; margin: 0; }
+            .no-print { display: none !important; }
+            body { background: white !important; }
+            .report-container { padding: 0 !important; margin: 0 !important; display: block !important; overflow: visible !important; }
+            .report-page {
+                transform: none !important;
+                margin: 0 !important;
+                border: none !important;
+                box-shadow: none !important;
+                width: 210mm !important;
+                min-height: 297mm !important;
+                padding: 15mm !important;
+                page-break-after: always;
+            }
+        }
+
+        .input-group label { display: block; font-size: 0.75rem; font-weight: bold; color: #4a5568; margin-bottom: 2px; }
+        .input-group input, .input-group textarea, .input-group select { 
+            width: 100%; border: 1px solid #cbd5e0; padding: 10px; border-radius: 6px; font-family: sans-serif; font-size: 1rem; 
+        }
+    </style>
 </head>
 <body class="bg-gray-100">
 
@@ -178,34 +170,42 @@
     <div class="report-container">
         <div id="report" class="report-page">
             <div class="text-center font-bold text-base mb-6 uppercase" id="kop_laporan">
-                LAPORAN PELAKSANAAN KEGIATAN <br> PENYULUHAN PERTANIAN
+                LAPORAN PELAKSANAAN <br> <span id="out_judul_kegiatan">PENYULUHAN PERTANIAN</span>
             </div>
 
             <table class="w-full mb-2">
-                <tr><td style="width: 25px;">1.</td><td colspan="2" class="font-bold">Penyuluh Pertanian</td></tr>
-                <tr><td></td><td style="width: 160px;">a. Nama/NIP</td><td>: <span id="out_nama" class="font-bold uppercase"></span> / NIP. <span id="out_nip"></span></td></tr>
-                <tr><td></td><td>b. Pangkat/Golongan</td><td>: <span id="out_pangkat"></span></td></tr>
-                <tr><td></td><td>c. Jabatan</td><td>: <span id="out_jabatan"></span></td></tr>
-                <tr><td></td><td>d. Unit Kerja</td><td>: <span id="out_unit"></span></td></tr>
-                <tr><td>2.</td><td>Dasar Pelaksanaan</td><td>: Programa Penyuluhan Pertanian</td></tr>
-                <tr><td>3.</td><td>Nama Kegiatan</td><td class="font-bold uppercase">: <span id="out_kegiatan"></span></td></tr>
-                <tr><td>4.</td><td colspan="2" class="font-bold pt-2">Pelaksanaan</td></tr>
-                <tr><td></td><td>a. Waktu</td><td>: <span id="out_tgl"></span></td></tr>
-                <tr><td></td><td>b. Tempat/Lokasi</td><td>: <span id="out_lokasi"></span></td></tr>
-                <tr><td></td><td>c. Peserta</td><td>: <span id="out_peserta"></span></td></tr>
+                <tr><td style="width: 25px;" class="font-bold">1.</td><td colspan="2" class="font-bold">Penyuluh Pertanian</td></tr>
+                <tr class="font-normal"><td></td><td style="width: 160px;">a. Nama/NIP</td><td>: <span id="out_nama" class="font-bold uppercase"></span> / NIP. <span id="out_nip"></span></td></tr>
+                <tr class="font-normal"><td></td><td>b. Pangkat/Golongan</td><td>: <span id="out_pangkat"></span></td></tr>
+                <tr class="font-normal"><td></td><td>c. Jabatan</td><td>: <span id="out_jabatan"></span></td></tr>
+                <tr class="font-normal"><td></td><td>d. Unit Kerja</td><td>: <span id="out_unit"></span></td></tr>
+                
+                <tr><td class="font-bold">2.</td><td class="font-bold">Dasar Pelaksanaan</td><td class="font-normal">: Programa Penyuluhan Pertanian</td></tr>
+                
+                <tr><td class="font-bold">3.</td><td class="font-bold">Nama Kegiatan</td><td>: <span id="out_kegiatan"></span></td></tr>
+                
+                <tr><td class="font-bold">4.</td><td colspan="2" class="font-bold pt-2">Pelaksanaan</td></tr>
+                <tr class="font-normal"><td></td><td>a. Waktu</td><td>: <span id="out_tgl"></span></td></tr>
+                <tr class="font-normal"><td></td><td>b. Tempat/Lokasi</td><td>: <span id="out_lokasi"></span></td></tr>
+                <tr class="font-normal"><td></td><td>c. Peserta</td><td>: <span id="out_peserta"></span></td></tr>
+
+                <tr>
+                    <td class="font-bold">5.</td>
+                    <td class="font-bold">Hasil Pekerjaan</td>
+                    <td class="font-normal">: </td>
+                </tr>
             </table>
 
-            <div class="font-bold mt-2">5. Hasil Pekerjaan</div>
-            <div class="ml-6 text-justify italic mb-1">Deskripsi :</div>
-            <div id="out_hasil" class="ml-6 text-justify mb-4 whitespace-pre-line text-sm"></div>
+            <div class="ml-6 text-justify italic mb-1 font-bold">Deskripsi :</div>
+            <div id="out_hasil" class="ml-6 text-justify mb-4 whitespace-pre-line text-sm font-normal"></div>
 
-            <div class="font-bold ml-6 mb-1 text-sm">Permasalahan:</div>
-            <ul id="out_masalah" class="ml-12 list-disc text-sm mb-4"></ul>
+            <div class="ml-6 text-justify italic mb-1 font-bold">Permasalahan:</div>
+            <ul id="out_masalah" class="ml-12 list-disc text-sm mb-4 font-normal"></ul>
 
-            <div class="font-bold ml-6 mb-1 text-sm">Upaya Penanganan:</div>
-            <ul id="out_upaya" class="ml-12 list-disc text-sm mb-6"></ul>
+            <div class="ml-6 text-justify italic mb-1 font-bold">Upaya Penanganan:</div>
+            <ul id="out_upaya" class="ml-12 list-disc text-sm mb-6 font-normal"></ul>
 
-            <div class="mt-12 flex justify-between px-4">
+            <div class="mt-12 flex justify-between px-4 font-normal">
                 <div class="text-center">
                     Mengetahui:<br><span id="out_koor_jabatan"></span>
                     <div id="out_koor_nama" class="mt-20 font-bold underline uppercase"></div>
@@ -225,10 +225,17 @@
         function updateLaporan() {
             const fields = ['nama', 'nip', 'pangkat', 'jabatan', 'unit', 'kegiatan', 'lokasi', 'peserta', 'tempat_ttd', 'hasil', 'koor_jabatan', 'koor_nama', 'koor_nip'];
             fields.forEach(f => {
-                const val = document.getElementById('in_' + f).value || '-';
+                const elInput = document.getElementById('in_' + f);
+                const val = elInput.value || (f === 'kegiatan' ? 'PENYULUHAN PERTANIAN' : '-');
+                
                 if (document.getElementById('out_' + f)) document.getElementById('out_' + f).innerText = val;
                 if(f === 'nama') document.getElementById('sig_nama').innerText = val;
                 if(f === 'nip') document.getElementById('sig_nip').innerText = val;
+                
+                // Update Judul KOP Dinamis
+                if(f === 'kegiatan') {
+                    document.getElementById('out_judul_kegiatan').innerText = elInput.value ? elInput.value.toUpperCase() : 'PENYULUHAN PERTANIAN';
+                }
             });
 
             const tgl = new Date().toLocaleDateString('id-ID', { day: '2-digit', month: 'long', year: 'numeric' });
