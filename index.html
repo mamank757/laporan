@@ -3,9 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistem Laporan Digital BPP Bola</title>
+    <title>Generator Laporan Digital PPL - BPP Bola</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
+    #report table {
+    border-spacing: 0;
+    border-collapse: collapse;
+}
+#report td {
+    padding-top: 2px;
+    padding-bottom: 2px;
+    line-height: 1.5;
+}
+/* Menjaga teks di kolom isi tetap lurus ke bawah setelah titik dua */
+#report td:last-child {
+    text-align: justify;
+}
         @import url('https://fonts.googleapis.com/css2?family=Times+New+Roman&display=swap');
         body { font-family: 'Times New Roman', Times, serif; }
         
@@ -15,186 +28,271 @@
             .report-page { border: none; box-shadow: none; margin: 0; padding: 10mm 15mm; width: 210mm; }
         }
 
-        .report-page {
-            background: white; width: 210mm; min-height: 297mm;
-            padding: 20mm 20mm; margin: 20px auto;
-            box-shadow: 0 0 15px rgba(0,0,0,0.1);
-            font-size: 11pt; line-height: 1.5; color: black;
+        .report-container {
+            width: 100%;
+            overflow-x: auto;
+            padding: 10px;
         }
 
-        /* Teknik agar titik dua lurus sempurna */
-        .tabel-laporan { width: 100%; border-collapse: collapse; table-layout: fixed; }
-        .tabel-laporan td { vertical-align: top; padding-bottom: 5px; }
-        .col-no { width: 30px; }
-        .col-label { width: 160px; }
-        .col-titik { width: 15px; }
-        
+        .report-page {
+            background: white; width: 210mm; min-height: 297mm;
+            padding: 20mm 20mm; margin: 0 auto 20px auto;
+            box-shadow: 0 0 15px rgba(0,0,0,0.2);
+            font-size: 11pt; line-height: 1.4; color: black;
+        }
+
         .input-group label { display: block; font-size: 0.75rem; font-weight: bold; color: #4a5568; margin-bottom: 2px; }
         .input-group input, .input-group textarea, .input-group select { 
-            width: 100%; border: 1px solid #cbd5e0; padding: 8px; border-radius: 6px; font-family: sans-serif; 
+            width: 100%; border: 1px solid #cbd5e0; padding: 8px; border-radius: 6px; font-family: sans-serif; font-size: 0.9rem; 
         }
+        
+        table td { vertical-align: top; padding-bottom: 4px; }
     </style>
 </head>
 <body class="bg-gray-100">
 
-    <div class="no-print max-w-5xl mx-auto p-6 bg-white my-8 rounded-xl shadow-lg border-t-4 border-green-600">
-        <h2 class="text-2xl font-bold mb-6 text-green-800 border-b pb-2">🌾 Panel Laporan PPL Digital</h2>
+    <div class="no-print max-w-6xl mx-auto p-4 md:p-6 bg-white my-4 md:my-8 rounded-xl shadow-lg border-t-4 border-blue-600">
+        <h2 class="text-xl md:text-2xl font-bold mb-6 text-blue-800 border-b pb-2 flex items-center">
+            <span class="mr-2">🌾</span> Sistem Laporan Digital BPP Bola
+        </h2>
         
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div class="space-y-4">
-                <div class="input-group"><label>Nama Penyuluh</label><input type="text" id="in_nama" placeholder="Contoh: ABDUL RAHMAN, SP" oninput="updateLaporan()"></div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="space-y-3 bg-gray-50 p-4 rounded-lg border">
+                <h3 class="font-bold text-blue-700 text-xs uppercase tracking-wider border-b pb-1">I. Identitas Penyuluh</h3>
+                <div class="input-group"><label>Nama Penyuluh</label><input type="text" id="in_nama" placeholder="Contoh: ABDUL RAHMAN, SP"></div>
+                <div class="input-group"><label>NIP</label><input type="text" id="in_nip" placeholder="Contoh: 1990..."></div>
                 <div class="input-group">
-                    <label>Nama Kegiatan</label>
-                    <select id="in_kegiatan" onchange="updateLaporan()">
-                        <option value="PENDAMPINGAN PENYEDIAAN BENIH DAN BIBIT SERTA PENINGKATAN PRODUKSI TERNAK">Pendampingan Benih & Produksi Ternak</option>
-                        <option value="PENDAMPINGAN RDKK PUPUK SUBSIDI">Pendampingan RDKK</option>
-                        <option value="MONITORING OPT PADI SAWAH">Monitoring OPT Padi</option>
+                    <label>Pangkat/Golongan</label>
+                    <select id="in_pangkat">
+                        <option value="">-- Pilih Pangkat/Golongan --</option>
+                        <option value="Pengatur Muda (II/a)">Pengatur Muda (II/a)</option>
+                        <option value="Pengatur Muda Tk.I (II/b)">Pengatur Muda Tk.I (II/b)</option>
+                        <option value="Pengatur (II/c)">Pengatur (II/c)</option>
+                        <option value="Pengatur Tk.I (II/d)">Pengatur Tk.I (II/d)</option>
+                        <option value="Penata Muda (III/a)">Penata Muda (III/a)</option>
+                        <option value="Penata Muda Tk.I (III/b)">Penata Muda Tk.I (III/b)</option>
+                        <option value="Penata (III/c)">Penata (III/c)</option>
+                        <option value="Pembina (IV/a)">Pembina (IV/a)</option>
+                        <option value="Pembina Tk.I (IV/b)">Pembina Tk.I (IV/b)</option>
+                        <option value="Pembina Utama Muda (IV/c)">Pembina Utama Muda (IV/c)</option>
+                        <option value="Pembina Utama Madya (IV/d)">Pembina Utama Madya (IV/d)</option>
+                        <option value="Pembina Utama (IV/e)">Pembina Utama (IV/e)</option>
                     </select>
                 </div>
-                <div class="input-group"><label>Lokasi (Desa/Poktan)</label><input type="text" id="in_lokasi" value="Lahan Poktan Sukamaju" oninput="updateLaporan()"></div>
-            </div>
-            <div class="space-y-4">
                 <div class="input-group">
-                    <label>API Key Groq (Masukkan manual demi keamanan)</label>
-                    <input type="password" id="api_key" placeholder="gsk_xxxx..." class="bg-yellow-50 border-yellow-300">
-                    <p class="text-[10px] text-red-500 mt-1">*Jangan simpan key di dalam kode (Script) agar tidak terkena peringatan keamanan lagi.</p>
+                    <label>Jabatan</label>
+                    <select id="in_jabatan">
+                        <option value="">-- Pilih Jabatan --</option>
+                        <option value="Penyuluh Pertanian Pemula">Penyuluh Pertanian Pemula</option>
+                        <option value="Penyuluh Pertanian Terampil">Penyuluh Pertanian Terampil</option>
+                        <option value="Penyuluh Pertanian Mahir">Penyuluh Pertanian Mahir</option>
+                        <option value="Penyuluh Pertanian Penyelia">Penyuluh Pertanian Penyelia</option>
+                        <option value="Penyuluh Pertanian Ahli Pertama">Penyuluh Ahli Pertama</option>
+                        <option value="Penyuluh Pertanian Ahli Muda">Penyuluh Pertanian Ahli Muda</option>
+                        <option value="Penyuluh Pertanian Ahli Madya">Penyuluh Pertanian Ahli Madya</option>
+                        <option value="Penyuluh Pertanian Ahli Utama">Penyuluh Pertanian Ahli Utama</option>
+                    </select>
                 </div>
-                <button onclick="generateAI()" id="btn-ai" class="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 rounded-lg transition flex items-center justify-center">
-                    <span id="loader" class="hidden animate-spin mr-2">🌀</span> ✨ Isi Deskripsi Otomatis
-                </button>
+                <div class="input-group"><label>Unit Kerja</label><input type="text" id="in_unit" value="Kementerian Pertanian RI"></div>
+            </div>
+
+            <div class="space-y-3 bg-gray-50 p-4 rounded-lg border">
+                <h3 class="font-bold text-blue-700 text-xs uppercase tracking-wider border-b pb-1">II. Detail Pelaksanaan</h3>
+                <div class="input-group">
+                    <label>Nama Kegiatan</label>
+                    <select id="in_kegiatan">
+                        <option value="">-- Pilih Kegiatan --</option>
+                        <option value="Pendampingan Peningkatan Produksi Hortikultura">Pendampingan Peningkatan Produksi Hortikultura</option>
+                        <option value="Pendampingan Hilirisasi Perkebunan">Pendampingan Hilirisasi Perkebunan</option>
+                        <option value="Pendampingan Penyediaan Benih Dan Bibit Serta Peningkatan Produksi Ternak">Pendampingan Penyediaan Benih Dan Bibit Serta Peningkatan Produksi Ternak</option>
+                        <option value="Pendampingan Pemanfaatan Alat dan Mesin Pertanian">Pendampingan Pemanfaatan Alat dan Mesin Pertanian</option>
+                        <option value="Pendampingan RDKK Pupuk Subsidi">Pendampingan RDKK Pupuk Subsidi</option>
+                        <option value="Pendampingan Survey Lokasi Cetak Sawah Rakyat (CSR)">Pendampingan Survey Lokasi Cetak Sawah Rakyat (CSR)</option>
+                        <option value="Pendampingan Pemanfaatan Irigasi Perpompaan Dan Perpipaan">Pendampingan Pemanfaatan Irigasi Perpompaan Dan Perpipaan</option>
+                        <option value="Pendampingan Kinerja Brigade Pangan (BP)">Pendampingan Kinerja Brigade Pangan (BP)</option>
+                        <option value="Pengawalan dan Pendampingan CPCL Bantuan Pemerintah">Pengawalan dan Pendampingan CPCL Bantuan Pemerintah</option>
+                    </select>
+                </div>
+                <div class="input-group"><label>Lokasi (Desa/Poktan)</label><input type="text" id="in_lokasi" placeholder="Lahan Poktan Sukamaju"></div>
+                <div class="input-group"><label>Jumlah Peserta</label><input type="text" id="in_peserta" placeholder="15 Orang"></div>
+                <div class="input-group"><label>Tempat TTD</label><input type="text" id="in_tempat_ttd" value="Bola"></div>
+            </div>
+
+            <div class="space-y-3 bg-orange-50 p-4 rounded-lg border border-orange-200">
+                <h3 class="font-bold text-orange-700 text-xs uppercase tracking-wider border-b pb-1">IV. Pengesahan</h3>
+                <div class="input-group"><label>Jabatan Penandatangan</label><input type="text" id="in_koor_jabatan" value="Koordinator BPP"></div>
+                <div class="input-group"><label>Nama Pejabat</label><input type="text" id="in_koor_nama" value="SAMAILA"></div>
+                <div class="input-group"><label>NIP Pejabat</label><input type="text" id="in_koor_nip" value="197104142014061001"></div>
+                <p class="text-[10px] text-gray-500 italic mt-4">*Data ini otomatis muncul di kolom tanda tangan kiri.</p>
             </div>
         </div>
 
-        <div class="mt-8 flex gap-4">
-            <button onclick="window.print()" class="flex-1 bg-green-600 text-white font-bold py-3 rounded-lg hover:bg-green-700 shadow-md">🖨️ Cetak ke PDF</button>
+        <div class="mt-6 space-y-4">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-2">
+                <h3 class="font-bold text-blue-700 text-xs uppercase tracking-wider">III. Isi Laporan (AI Powered)</h3>
+                <button onclick="generateAI()" id="btn-ai" class="bg-purple-600 hover:bg-purple-700 text-white text-xs font-bold py-2 px-6 rounded-full transition shadow-md flex items-center justify-center">
+                    <span id="loader" class="hidden animate-spin mr-2 text-white">🌀</span> ✨ Generate Otomatis
+                </button>
+            </div>
+            <div class="input-group"><label>Hasil Pekerjaan (Deskripsi)</label><textarea id="in_hasil" class="h-24 md:h-32"></textarea></div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="input-group"><label>Permasalahan</label><textarea id="in_masalah" class="h-20"></textarea></div>
+                <div class="input-group"><label>Upaya Penanganan</label><textarea id="in_upaya" class="h-20"></textarea></div>
+            </div>
+        </div>
+
+        <div class="mt-8 flex flex-col md:flex-row gap-4">
+            <button onclick="updateLaporan()" class="w-full bg-blue-600 text-white font-bold py-3 rounded-lg hover:bg-blue-700 shadow-lg transition">Update Preview</button>
+            <button onclick="window.print()" class="w-full bg-green-600 text-white font-bold py-3 rounded-lg hover:bg-green-700 shadow-lg transition">🖨️ Cetak / Simpan PDF</button>
         </div>
     </div>
 
-    <div id="report" class="report-page">
-        <div class="text-center font-bold text-base mb-8 uppercase">
-            LAPORAN PELAKSANAAN KEGIATAN PENDAMPINGAN <br> PENYULUHAN PERTANIAN
-        </div>
-
-        <table class="tabel-laporan">
-            <tr>
-                <td class="col-no font-bold">1.</td>
-                <td class="col-label font-bold">Penyuluh Pertanian</td>
-                <td class="col-titik">:</td>
-                <td class="font-bold uppercase"><span id="out_nama"></span></td>
-            </tr>
-            
-            <tr>
-                <td class="font-bold">2.</td>
-                <td class="font-bold">Dasar Pelaksanaan</td>
-                <td>:</td>
-                <td>Programa Penyuluhan Pertanian</td>
-            </tr>
-
-            <tr>
-                <td class="font-bold">3.</td>
-                <td class="font-bold">Nama Kegiatan</td>
-                <td class="font-bold">:</td>
-                <td class="font-bold uppercase" id="out_kegiatan">PENDAMPINGAN PENYEDIAAN BENIH DAN BIBIT SERTA PENINGKATAN PRODUKSI TERNAK</td>
-            </tr>
-
-            <tr>
-                <td class="font-bold">4.</td>
-                <td class="font-bold">Pelaksanaan</td>
-                <td colspan="2"></td>
-            </tr>
-            <tr>
-                <td></td>
-                <td class="pl-4">a. Waktu</td>
-                <td>:</td>
-                <td><span id="out_tgl">05 April 2026</span></td>
-            </tr>
-            <tr>
-                <td></td>
-                <td class="pl-4">b. Tempat/Lokasi</td>
-                <td>:</td>
-                <td><span id="out_lokasi">Lahan Poktan Sukamaju</span></td>
-            </tr>
-            <tr>
-                <td></td>
-                <td class="pl-4">c. Peserta</td>
-                <td>:</td>
-                <td>15 Orang</td>
-            </tr>
-
-            <tr>
-                <td class="font-bold">5.</td>
-                <td class="font-bold">Hasil Pekerjaan</td>
-                <td>:</td>
-                <td></td>
-            </tr>
-        </table>
-
-        <div class="ml-10 mt-2">
-            <div class="italic underline mb-1">Deskripsi :</div>
-            <div id="out_hasil" class="text-justify mb-4">Mendampingi kelompok tani dalam penyaluran benih...</div>
-            
-            <div class="font-bold mb-1">Permasalahan:</div>
-            <div id="out_masalah" class="mb-4">-</div>
-
-            <div class="font-bold mb-1">Upaya Penanganan:</div>
-            <div id="out_upaya">-</div>
-        </div>
-
-        <div class="mt-16 flex justify-between px-10">
-            <div class="text-center">
-                Mengetahui:<br>Koordinator BPP
-                <div class="mt-20 font-bold underline">SAMAILA</div>
-                NIP. 197104142014061001
+    <div class="report-container no-print">
+        <div id="report" class="report-page">
+            <div class="text-center font-bold text-base mb-6 uppercase" id="kop_laporan">
+                LAPORAN PELAKSANAAN KEGIATAN PENDAMPINGAN <br> PENYULUHAN PERTANIAN
             </div>
-            <div class="text-center">
-                Bola, 05 April 2026<br>Penyuluh Pertanian
-                <div id="sig_nama" class="mt-20 font-bold underline uppercase"></div>
-                <span>NIP. 19xxxxxxxxxxxxxxx</span>
+
+            <table class="w-full mb-2 border-collapse">
+    <tr>
+        <td style="width: 25px;">1.</td>
+        <td colspan="2" class="font-bold">Penyuluh Pertanian</td>
+    </tr>
+    <tr>
+        <td></td>
+        <td style="width: 160px;">a. Nama/NIP</td>
+        <td>: <span id="out_nama" class="font-bold uppercase"></span> / NIP. <span id="out_nip"></span></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>b. Pangkat/Golongan</td>
+        <td>: <span id="out_pangkat"></span></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>c. Jabatan</td>
+        <td>: <span id="out_jabatan"></span></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>d. Unit Kerja</td>
+        <td>: <span id="out_unit"></span></td>
+    </tr>
+
+    <tr>
+        <td>2.</td>
+        <td>Dasar Pelaksanaan</td>
+        <td>: Programa Penyuluhan Pertanian</td>
+    </tr>
+
+    <tr>
+        <td>3.</td>
+        <td>Nama Kegiatan</td>
+        <td class="font-bold uppercase">: <span id="out_kegiatan"></span></td>
+    </tr>
+
+    <tr>
+        <td class="pt-2">4.</td>
+        <td colspan="2" class="font-bold pt-2">Pelaksanaan</td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>a. Waktu</td>
+        <td>: <span id="out_tgl"></span></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>b. Tempat/Lokasi</td>
+        <td>: <span id="out_lokasi"></span></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>c. Peserta</td>
+        <td>: <span id="out_peserta"></span></td>
+    </tr>
+</table>
+            <div class="font-bold mt-2">5. Hasil Pekerjaan</div>
+            <div class="ml-6 text-justify italic mb-1">Deskripsi :</div>
+            <div id="out_hasil" class="ml-6 text-justify leading-relaxed mb-4 whitespace-pre-line text-sm"></div>
+
+            <div class="font-bold ml-6 mb-1 text-sm">Permasalahan:</div>
+            <ul id="out_masalah" class="ml-12 list-disc text-sm mb-4"></ul>
+
+            <div class="font-bold ml-6 mb-1 text-sm">Upaya Penanganan:</div>
+            <ul id="out_upaya" class="ml-12 list-disc text-sm mb-6"></ul>
+
+            <div class="mt-12 flex justify-between px-4">
+                <div class="text-center">
+                    Mengetahui:<br><span id="out_koor_jabatan"></span>
+                    <div id="out_koor_nama" class="mt-20 font-bold underline uppercase"></div>
+                    NIP. <span id="out_koor_nip"></span>
+                </div>
+                <div class="text-center">
+                    <span id="out_tempat_ttd"></span>, <span id="out_tgl_ttd"></span><br>
+                    Penyuluh Pertanian
+                    <div id="sig_nama" class="mt-20 font-bold underline uppercase"></div>
+                    NIP. <span id="sig_nip"></span>
+                </div>
             </div>
         </div>
     </div>
 
     <script>
-        function updateLaporan() {
-            document.getElementById('out_nama').innerText = document.getElementById('in_nama').value || '................';
-            document.getElementById('sig_nama').innerText = document.getElementById('in_nama').value || '................';
-            document.getElementById('out_kegiatan').innerText = document.getElementById('in_kegiatan').value;
-            document.getElementById('out_lokasi').innerText = document.getElementById('in_lokasi').value;
-        }
-
+        // API KEY GROQ
         async function generateAI() {
-            const key = document.getElementById('api_key').value;
-            if(!key) return alert("Masukkan API Key dulu Pak, demi keamanan key tidak saya simpan di kode.");
-            
             const btn = document.getElementById('btn-ai');
             const loader = document.getElementById('loader');
             const kegiatan = document.getElementById('in_kegiatan').value;
-            
+            const lokasi = document.getElementById('in_lokasi').value;
+            const groqApiKey = "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";
+
+            if(!kegiatan || !lokasi) return alert("Silakan pilih Nama Kegiatan dan isi Lokasi terlebih dahulu!");
             btn.disabled = true; loader.classList.remove('hidden');
+
+            const prompt = `Anda adalah asisten cerdas Penyuluh Pertanian (PPL). Buatkan konten laporan formal untuk kegiatan: ${kegiatan} di ${lokasi}. Berikan jawaban HANYA JSON: {"deskripsi": "...", "masalah": ["...", "..."], "upaya": ["...", "..."]}`;
 
             try {
                 const res = await fetch("https://api.groq.com/openai/v1/chat/completions", {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${key}` },
+                    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${groqApiKey}` },
                     body: JSON.stringify({ 
                         model: "llama-3.3-70b-versatile", 
-                        messages: [{ role: "user", content: `Buat laporan kegiatan PPL: ${kegiatan}. Format JSON: {"deskripsi":"", "masalah":"", "upaya":""}` }],
+                        messages: [{ role: "user", content: prompt }],
                         response_format: { type: "json_object" }
                     })
                 });
                 const data = await res.json();
                 const result = JSON.parse(data.choices[0].message.content);
-                
-                document.getElementById('out_hasil').innerText = result.deskripsi;
-                document.getElementById('out_masalah').innerText = result.masalah;
-                document.getElementById('out_upaya').innerText = result.upaya;
-            } catch (e) {
-                alert("Gagal ambil data. Pastikan API Key benar dan kuota cukup.");
-            } finally {
-                btn.disabled = false; loader.classList.add('hidden');
-            }
+                document.getElementById('in_hasil').value = result.deskripsi;
+                document.getElementById('in_masalah').value = result.masalah.join('\n');
+                document.getElementById('in_upaya').value = result.upaya.join('\n');
+                updateLaporan();
+            } catch (e) { alert("Gagal mengambil data AI."); } 
+            finally { btn.disabled = false; loader.classList.add('hidden'); }
         }
-        
+
+        function updateLaporan() {
+            const fields = ['nama', 'nip', 'pangkat', 'jabatan', 'unit', 'kegiatan', 'lokasi', 'peserta', 'tempat_ttd', 'hasil', 'koor_jabatan', 'koor_nama', 'koor_nip'];
+            fields.forEach(f => {
+                const val = document.getElementById('in_' + f).value || '-';
+                if (document.getElementById('out_' + f)) document.getElementById('out_' + f).innerText = val;
+                if(f === 'nama') document.getElementById('sig_nama').innerText = val;
+                if(f === 'nip') document.getElementById('sig_nip').innerText = val;
+                if(f === 'koor_nama') document.getElementById('out_koor_nama').innerText = val;
+            });
+            const tgl = new Date().toLocaleDateString('id-ID', { day: '2-digit', month: 'long', year: 'numeric' });
+            document.getElementById('out_tgl').innerText = tgl;
+            document.getElementById('out_tgl_ttd').innerText = tgl;
+
+            const render = (inId, outId) => {
+                const el = document.getElementById(outId); 
+                el.innerHTML = "";
+                document.getElementById(inId).value.split('\n').forEach(t => { 
+                    if(t.trim()){ const li = document.createElement('li'); li.innerText = t.trim(); el.appendChild(li); }
+                });
+            };
+            render('in_masalah', 'out_masalah'); render('in_upaya', 'out_upaya');
+        }
         window.onload = updateLaporan;
     </script>
 </body>
