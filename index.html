@@ -20,7 +20,6 @@
         /* Kertas Laporan */
         .report-page {
             background: white; width: 210mm; 
-            /* Hapus min-height agar bisa memanjang ke halaman 2 */
             min-height: 297mm;
             padding: 20mm; margin: 10px auto;
             box-shadow: 0 0 20px rgba(0,0,0,0.5);
@@ -28,21 +27,20 @@
             position: relative; transform-origin: top center;
         }
 
-        /* Preview Full Layar HP - Diperbaiki agar tidak sempit */
+        /* Preview Full Layar HP */
         @media screen and (max-width: 210mm) {
             .report-container { padding: 0; display: block; }
             .report-page {
                 transform: scale(calc(100vw / 210mm)); 
                 transform-origin: top left; 
                 margin: 0;
-                /* Kalkulasi margin bawah otomatis berdasarkan skala agar footer tidak tertutup */
                 margin-bottom: calc(20px - (297mm * (1 - (100vw / 210mm)))); 
                 border-radius: 0;
                 box-shadow: none;
             }
         }
 
-        /* Perbaikan Cetak PDF - Mendukung Halaman Ganda */
+        /* Perbaikan Cetak PDF */
         @media print {
             @page { size: A4; margin: 0; }
             .no-print { display: none !important; }
@@ -52,27 +50,23 @@
                 transform: none !important; margin: 0 !important; border: none !important;
                 box-shadow: none !important; width: 210mm !important;
                 padding: 20mm !important; 
-                /* Biarkan konten mengalir ke halaman berikutnya */
                 height: auto !important;
                 min-height: 0 !important;
             }
-            /* Menjaga elemen penting tidak terpotong di tengah */
             tr, .foto-wrap, ul { page-break-inside: avoid; }
         }
 
-        /* Dark Mode Input Groups */
         .input-group label { display: block; font-size: 0.75rem; font-weight: bold; color: #bbb; margin-bottom: 2px; }
         .input-group input, .input-group textarea, .input-group select { 
             width: 100%; background-color: #1e1e1e; border: 1px solid #333; color: #fff;
             padding: 10px; border-radius: 6px; font-family: sans-serif; font-size: 1rem; 
         }
         
-        /* Foto Center & Batas Maksimal */
         #img_preview { 
             display: block; 
             margin: 10px auto; 
-            max-width: 12cm; /* Batas lebar */
-            max-height: 8cm; /* Batas tinggi */
+            max-width: 12cm; 
+            max-height: 8cm; 
             border: 1px solid #ddd; 
             object-fit: contain; 
         }
@@ -83,18 +77,24 @@
 
     <div class="no-print max-w-6xl mx-auto p-4 md:p-6 bg-[#1e1e1e] my-4 md:my-8 rounded-xl shadow-2xl border-t-4 border-blue-600">
         <h2 class="text-xl md:text-2xl font-bold mb-6 text-blue-400 border-b border-gray-700 pb-2 flex items-center">
-            <span class="mr-2">🌾</span> Sistem Laporan Digital PPL Indonesia
+            <span class="mr-2">💻</span> Sistem Pelaporan Digital PPL Indonesia
         </h2>
         
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div class="space-y-3 bg-[#252525] p-4 rounded-lg border border-gray-800">
                 <h3 class="font-bold text-blue-400 text-xs uppercase tracking-wider border-b border-gray-700 pb-1">I. Identitas Penyuluh</h3>
-                <div class="input-group"><label>Nama Penyuluh</label><input type="text" id="in_nama" oninput="updateLaporan()" placeholder="ABDUL RAHMAN, SP"></div>
-                <div class="input-group"><label>NIP</label><input type="text" id="in_nip" oninput="updateLaporan()" placeholder="1990....."></div>
+                <div class="input-group">
+                    <label>Nama Penyuluh</label>
+                    <input type="text" id="in_nama" oninput="updateLaporan()" placeholder="Cth. ABDUL RAHMAN, SP">
+                </div>
+                <div class="input-group">
+                    <label>NIP</label>
+                    <input type="text" id="in_nip" oninput="updateLaporan()" placeholder="Cth. 1990 ....">
+                </div>
                 <div class="input-group">
                     <label>Pangkat/Golongan</label>
                     <select id="in_pangkat" onchange="updateLaporan()">
-                        <option value="">-- Pilih Pangkat/Golongan --</option>
+                         <option value="">-- Pilih Pangkat/Golongan --</option>
                         <option value="Pengatur Muda (II/a)">Pengatur Muda (II/a)</option>
                         <option value="Pengatur Muda Tk.I (II/b)">Pengatur Muda Tk.I (II/b)</option>
                         <option value="Pengatur (II/c)">Pengatur (II/c)</option>
@@ -113,7 +113,7 @@
                 <div class="input-group">
                     <label>Jabatan</label>
                     <select id="in_jabatan" onchange="updateLaporan()">
-                        <option value="">-- Pilih Jabatan --</option>
+                         <option value="">-- Pilih Jabatan --</option>
                         <option value="Penyuluh Pertanian Pemula">Penyuluh Pertanian Pemula</option>
                         <option value="Penyuluh Pertanian Terampil">Penyuluh Pertanian Terampil</option>
                         <option value="Penyuluh Pertanian Mahir">Penyuluh Pertanian Mahir</option>
@@ -130,6 +130,10 @@
             <div class="space-y-3 bg-[#252525] p-4 rounded-lg border border-gray-800">
                 <h3 class="font-bold text-blue-400 text-xs uppercase tracking-wider border-b border-gray-700 pb-1">II. Detail Pelaksanaan</h3>
                 <div class="input-group">
+                    <label>Dasar Pelaksanaan</label>
+                    <input type="text" id="in_dasar" oninput="updateLaporan()" value="Programa Penyuluhan Pertanian">
+                </div>
+                <div class="input-group">
                     <label>Nama Kegiatan</label>
                     <select id="in_kegiatan" onchange="updateLaporan()">
                         <option value="">-- Pilih Kegiatan --</option>
@@ -144,17 +148,18 @@
                         <option value="Pengawalan dan Pendampingan CPCL Bantuan Pemerintah">Pengawalan dan Pendampingan CPCL Bantuan Pemerintah</option>
                     </select>
                 </div>
-                <div class="input-group"><label>Lokasi (Desa/Poktan)</label><input type="text" id="in_lokasi" oninput="updateLaporan()" placeholder="Cth: Lahan Poktan Sukamaju, Sekretariat Poktan Bina Bersama"></div>
+                <div class="input-group"><label>Lokasi (Desa/Poktan)</label><input type="text" id="in_lokasi" oninput="updateLaporan()" placeholder="Cth: Lahan Poktan Sukamaju"></div>
                 <div class="input-group"><label>Jumlah Peserta</label><input type="text" id="in_peserta" oninput="updateLaporan()" placeholder="Cth: 15 Orang"></div>
-                <div class="input-group"><label>Foto Kegiatan (Opsional)</label><input type="file" id="in_foto" accept="image/*" onchange="handleFoto(this)" class="text-xs"></div>
-                <div class="input-group"><label>Tempat TTD</label><input type="text" id="in_tempat_ttd" oninput="updateLaporan()" value="Bola"></div>
+                <div class="input-group"><label>Foto Kegiatan</label><input type="file" id="in_foto" accept="image/*" onchange="handleFoto(this)" class="text-xs"></div>
             </div>
 
             <div class="space-y-3 bg-[#2d251d] p-4 rounded-lg border border-orange-900/30">
                 <h3 class="font-bold text-orange-400 text-xs uppercase tracking-wider border-b border-orange-900/30 pb-1">IV. Pengesahan</h3>
+                <div class="input-group"><label>Tempat TTD</label><input type="text" id="in_tempat_ttd" oninput="updateLaporan()" value="Bola"></div>
+                <div class="input-group"><label>Tanggal Pengesahan</label><input type="date" id="in_tgl_ttd_manual" onchange="updateLaporan()"></div>
                 <div class="input-group"><label>Jabatan Penandatangan</label><input type="text" id="in_koor_jabatan" oninput="updateLaporan()" value="Koordinator BPP ..."></div>
-                <div class="input-group"><label>Nama Pejabat</label><input type="text" id="in_koor_nama" oninput="updateLaporan()" value="Tulis Nama"></div>
-                <div class="input-group"><label>NIP Pejabat</label><input type="text" id="in_koor_nip" oninput="updateLaporan()" value="Tulis NIP"></div>
+                <div class="input-group"><label>Nama Pejabat</label><input type="text" id="in_koor_nama" oninput="updateLaporan()" value="Nama Koordinator"></div>
+                <div class="input-group"><label>NIP Pejabat</label><input type="text" id="in_koor_nip" oninput="updateLaporan()" value="19xxxxxxxxxxxxxx"></div>
             </div>
         </div>
 
@@ -186,12 +191,12 @@
 
             <table class="w-full mb-2">
                 <tr><td style="width: 25px;" class="font-bold">1.</td><td colspan="2" class="font-bold">Penyuluh Pertanian</td></tr>
-                <tr class="font-normal"><td></td><td style="width: 160px;">a. Nama/NIP</td><td>: <span id="out_nama" class="font-bold uppercase"></span> / NIP. <span id="out_nip"></span></td></tr>
-                <tr class="font-normal"><td></td><td>b. Pangkat/Golongan</td><td>: <span id="out_pangkat"></span></td></tr>
+                <tr class="font-normal"><td></td><td style="width: 160px;">a. Nama / NIP</td><td>: <span id="out_nama" class="font-bold uppercase"></span> / NIP. <span id="out_nip"></span></td></tr>
+                <tr class="font-normal"><td></td><td>b. Pangkat / Golongan</td><td>: <span id="out_pangkat"></span></td></tr>
                 <tr class="font-normal"><td></td><td>c. Jabatan</td><td>: <span id="out_jabatan"></span></td></tr>
                 <tr class="font-normal"><td></td><td>d. Unit Kerja</td><td>: <span id="out_unit"></span></td></tr>
-                <tr><td class="font-bold">2.</td><td class="font-bold">Dasar Pelaksanaan</td><td class="font-normal">: Programa Penyuluhan Pertanian</td></tr>
-                <tr><td class="font-bold">3.</td><td class="font-bold">Nama Kegiatan</td><td class="font-bold uppercase">: <span id="out_kegiatan"></span></td></tr>
+                <tr><td class="font-bold">2.</td><td class="font-bold">Dasar Pelaksanaan</td><td class="font-normal">: <span id="out_dasar"></span></td></tr>
+                <tr><td class="font-bold">3.</td><td class="font-bold">Nama Kegiatan</td><td class="font-normal">: <span id="out_kegiatan"></span></td></tr>
                 <tr><td class="font-bold">4.</td><td colspan="2" class="font-bold pt-2">Pelaksanaan</td></tr>
                 <tr class="font-normal"><td></td><td>a. Waktu</td><td>: <span id="out_tgl"></span></td></tr>
                 <tr class="font-normal"><td></td><td>b. Tempat/Lokasi</td><td>: <span id="out_lokasi"></span></td></tr>
@@ -241,11 +246,20 @@
         }
 
         function updateLaporan() {
-            const fields = ['nama', 'nip', 'pangkat', 'jabatan', 'unit', 'kegiatan', 'lokasi', 'peserta', 'tempat_ttd', 'hasil', 'koor_jabatan', 'koor_nama', 'koor_nip'];
-            const tglStr = new Date().toLocaleDateString('id-ID', { day: '2-digit', month: 'long', year: 'numeric' });
+            const fields = ['nama', 'nip', 'pangkat', 'jabatan', 'unit', 'kegiatan', 'lokasi', 'peserta', 'tempat_ttd', 'hasil', 'koor_jabatan', 'koor_nama', 'koor_nip', 'dasar'];
+            const tglOtomatis = new Date().toLocaleDateString('id-ID', { day: '2-digit', month: 'long', year: 'numeric' });
             
+            // Handle Tanggal Manual vs Otomatis
+            const tglManual = document.getElementById('in_tgl_ttd_manual').value;
+            let tglTampil = tglOtomatis;
+            if (tglManual) {
+                const d = new Date(tglManual);
+                tglTampil = d.toLocaleDateString('id-ID', { day: '2-digit', month: 'long', year: 'numeric' });
+            }
+
             fields.forEach(f => {
                 const elInput = document.getElementById('in_' + f);
+                if (!elInput) return;
                 const val = elInput.value || (f === 'kegiatan' ? 'PENYULUHAN PERTANIAN' : '-');
                 
                 if (document.getElementById('out_' + f)) document.getElementById('out_' + f).innerText = val;
@@ -254,14 +268,19 @@
                 if(f === 'kegiatan') document.getElementById('out_judul_kegiatan').innerText = elInput.value ? elInput.value.toUpperCase() : 'PENYULUHAN PERTANIAN';
             });
 
-            document.getElementById('out_tgl').innerText = tglStr;
-            document.getElementById('out_tgl_ttd').innerText = tglStr;
+            document.getElementById('out_tgl').innerText = tglTampil;
+            document.getElementById('out_tgl_ttd').innerText = tglTampil;
 
             const renderList = (inId, outId) => {
-                const el = document.getElementById(outId);
-                el.innerHTML = "";
-                document.getElementById(inId).value.split('\n').forEach(t => {
-                    if(t.trim()){ const li = document.createElement('li'); li.innerText = t.trim(); el.appendChild(li); }
+                const outEl = document.getElementById(outId);
+                const inEl = document.getElementById(inId);
+                outEl.innerHTML = "";
+                inEl.value.split('\n').forEach(t => {
+                    if(t.trim()){ 
+                        const li = document.createElement('li'); 
+                        li.innerText = t.trim(); 
+                        outEl.appendChild(li); 
+                    }
                 });
             };
             renderList('in_masalah', 'out_masalah');
@@ -273,7 +292,7 @@
             const loader = document.getElementById('loader');
             const kegiatan = document.getElementById('in_kegiatan').value;
             const lokasi = document.getElementById('in_lokasi').value;
-            const groqApiKey = "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";
+            const groqApiKey = "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"; 
 
             if(!kegiatan || !lokasi) return alert("Pilih kegiatan dan lokasi dulu!");
             btn.disabled = true; loader.classList.remove('hidden');
@@ -284,7 +303,7 @@
                     headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${groqApiKey}` },
                     body: JSON.stringify({ 
                         model: "llama-3.3-70b-versatile", 
-                        messages: [{ role: "user", content: `Buat laporan formal PPL singkat untuk kegiatan ${kegiatan} di ${lokasi}. JSON format: {"deskripsi":"", "masalah":[], "upaya":[]}` }],
+                        messages: [{ role: "user", content: `Buat laporan formal PPL singkat untuk kegiatan ${kegiatan} di ${lokasi}. Gunakan bahasa Indonesia formal. JSON format: {"deskripsi":"", "masalah":[], "upaya":[]}` }],
                         response_format: { type: "json_object" }
                     })
                 });
