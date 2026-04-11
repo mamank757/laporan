@@ -114,6 +114,7 @@
         }
 
         .hidden-element { display: none; }
+        .ttd-img { max-height: 80px; width: auto; display: block; margin: 0 auto; }
     </style>
 </head>
 <body class="pb-20">
@@ -153,7 +154,7 @@
                     <div class="input-group">
                         <label>Golongan</label>
                         <select id="in_pangkat" onchange="updateLaporan()">
-                                                       <option value="">-- Pilih Pangkat/Golongan --</option>
+                                                                       <option value="">-- Pilih Pangkat/Golongan --</option>
                         <option value="Pengatur Muda (II/a)">Pengatur Muda (II/a)</option>
                         <option value="Pengatur Muda Tk.I (II/b)">Pengatur Muda Tk.I (II/b)</option>
                         <option value="Pengatur (II/c)">Pengatur (II/c)</option>
@@ -186,6 +187,10 @@
                     <div class="input-group">
                         <label>Unit Kerja</label>
                         <input type="text" id="in_unit" oninput="updateLaporan()" value="Kementerian Pertanian RI">
+                    </div>
+                    <div class="input-group">
+                        <label>TTD Penyuluh (PNG)</label>
+                        <input type="file" id="in_ttd_penyuluh" accept="image/png" onchange="handleTTD(this, 'out_ttd_penyuluh')">
                     </div>
                 </div>
 
@@ -259,6 +264,10 @@
                     <div class="input-group">
                         <label>NIP. Pejabat</label>
                         <input type="text" id="in_koor_nip" oninput="updateLaporan()" placeholder="19xxxxxxxxxxxxxx">
+                    </div>
+                    <div class="input-group">
+                        <label>TTD Pejabat (PNG)</label>
+                        <input type="file" id="in_ttd_koor" accept="image/png" onchange="handleTTD(this, 'out_ttd_koor')">
                     </div>
                 </div>
             </div>
@@ -356,14 +365,18 @@
         <div class="mt-16 flex justify-between gap-10">
             <div class="text-center w-1/2">
                 Mengetahui:<br><span id="out_koor_jabatan"></span>
-                <div class="h-24"></div>
+                <div class="h-24 flex items-center justify-center">
+                    <img id="out_ttd_koor" class="ttd-img hidden-element">
+                </div>
                 <div id="out_koor_nama" class="font-bold underline"></div>
                 NIP. <span id="out_koor_nip"></span>
             </div>
             <div class="text-center w-1/2">
                 <span id="out_tempat_ttd"></span>, <span id="out_tgl_ttd"></span><br>
                 Penyuluh Pertanian,
-                <div class="h-24"></div>
+                <div class="h-24 flex items-center justify-center">
+                    <img id="out_ttd_penyuluh" class="ttd-img hidden-element">
+                </div>
                 <div id="sig_nama" class="font-bold underline"></div>
                 NIP. <span id="sig_nip"></span>
             </div>
@@ -384,7 +397,6 @@
                 img.src = e.target.result; 
                 container.classList.remove('hidden-element'); 
                 
-                // Ubah tampilan kolom upload agar ada kesan terupload
                 uploadBox.classList.remove('border-gray-700');
                 uploadBox.classList.add('border-emerald-500', 'bg-emerald-500/10');
                 statusArea.innerHTML = `
@@ -396,13 +408,26 @@
             reader.readAsDataURL(input.files[0]);
         } else { 
             container.classList.add('hidden-element'); 
-            // Reset ke tampilan awal jika batal
             uploadBox.classList.add('border-gray-700');
             uploadBox.classList.remove('border-emerald-500', 'bg-emerald-500/10');
             statusArea.innerHTML = `
                 <i class="fa-solid fa-camera text-gray-500 mb-2 text-xl"></i>
                 <p class="text-[10px] text-gray-400">Klik atau seret foto ke sini</p>
             `;
+        }
+    }
+
+    function handleTTD(input, targetId) {
+        const img = document.getElementById(targetId);
+        if (input.files && input.files[0]) {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                img.src = e.target.result;
+                img.classList.remove('hidden-element');
+            };
+            reader.readAsDataURL(input.files[0]);
+        } else {
+            img.classList.add('hidden-element');
         }
     }
 
@@ -414,11 +439,9 @@
             return d.toLocaleDateString('id-ID', { day: '2-digit', month: 'long', year: 'numeric' });
         }
 
-        // Handle Tanggal Kegiatan
         const tglKegiatanRaw = document.getElementById('in_tgl_kegiatan').value;
         document.getElementById('out_tgl_kegiatan').innerText = formatTgl(tglKegiatanRaw);
 
-        // Handle Tanggal Pengesahan
         const tglTTDRaw = document.getElementById('in_tgl_ttd_manual').value;
         const tglTTDOtomatis = new Date().toLocaleDateString('id-ID', { day: '2-digit', month: 'long', year: 'numeric' });
         document.getElementById('out_tgl_ttd').innerText = tglTTDRaw ? formatTgl(tglTTDRaw) : tglTTDOtomatis;
