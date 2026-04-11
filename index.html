@@ -499,7 +499,7 @@
             document.getElementById('in_masalah').value = result.masalah.join('\n');
             document.getElementById('in_upaya').value = result.upaya.join('\n');
             updateLaporan();
-        } catch (e) { alert("Gagal mengambil data AI."); } 
+        } catch (e) { alert("Gagal memproses data AI karena banyak pengguna, silakan coba lagi."); } 
         finally { btn.disabled = false; loader.classList.add('hidden'); }
     }
     window.onload = updateLaporan;
