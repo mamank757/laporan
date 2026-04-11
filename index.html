@@ -213,6 +213,10 @@
                     </select>
                     </div>
                     <div class="input-group">
+                        <label>Tanggal Kegiatan</label>
+                        <input type="date" id="in_tgl_kegiatan" onchange="updateLaporan()">
+                    </div>
+                    <div class="input-group">
                         <label>Lokasi / Poktan</label>
                         <input type="text" id="in_lokasi" oninput="updateLaporan()" placeholder="Cth. Lahan Poktan Sukamaju, Sekretariat Masselomoe">
                     </div>
@@ -321,7 +325,7 @@
             
             <tr class="h-2"></tr>
             <tr><td class="font-bold">4.</td><td colspan="2" class="font-bold">Waktu dan Lokasi</td></tr>
-            <tr><td></td><td>a. Tanggal</td><td>: <span id="out_tgl"></span></td></tr>
+            <tr><td></td><td>a. Tanggal Kegiatan</td><td>: <span id="out_tgl_kegiatan"></span></td></tr>
             <tr><td></td><td>b. Tempat/Lokasi</td><td>: <span id="out_lokasi"></span></td></tr>
             <tr><td></td><td>c. Jumlah Sasaran</td><td>: <span id="out_peserta"></span></td></tr>
             
@@ -404,14 +408,20 @@
 
     function updateLaporan() {
         const fields = ['nama', 'nip', 'pangkat', 'jabatan', 'unit', 'kegiatan', 'lokasi', 'peserta', 'tempat_ttd', 'hasil', 'koor_jabatan', 'koor_nama', 'koor_nip', 'dasar'];
-        const tglOtomatis = new Date().toLocaleDateString('id-ID', { day: '2-digit', month: 'long', year: 'numeric' });
-        
-        const tglManual = document.getElementById('in_tgl_ttd_manual').value;
-        let tglTampil = tglOtomatis;
-        if (tglManual) {
-            const d = new Date(tglManual);
-            tglTampil = d.toLocaleDateString('id-ID', { day: '2-digit', month: 'long', year: 'numeric' });
+        const formatTgl = (val) => {
+            if(!val) return "-";
+            const d = new Date(val);
+            return d.toLocaleDateString('id-ID', { day: '2-digit', month: 'long', year: 'numeric' });
         }
+
+        // Handle Tanggal Kegiatan
+        const tglKegiatanRaw = document.getElementById('in_tgl_kegiatan').value;
+        document.getElementById('out_tgl_kegiatan').innerText = formatTgl(tglKegiatanRaw);
+
+        // Handle Tanggal Pengesahan
+        const tglTTDRaw = document.getElementById('in_tgl_ttd_manual').value;
+        const tglTTDOtomatis = new Date().toLocaleDateString('id-ID', { day: '2-digit', month: 'long', year: 'numeric' });
+        document.getElementById('out_tgl_ttd').innerText = tglTTDRaw ? formatTgl(tglTTDRaw) : tglTTDOtomatis;
 
         fields.forEach(f => {
             const elInput = document.getElementById('in_' + f);
@@ -423,9 +433,6 @@
             if(f === 'nip') document.getElementById('sig_nip').innerText = val;
             if(f === 'kegiatan') document.getElementById('out_judul_kegiatan').innerText = elInput.value ? elInput.value.toUpperCase() : 'PENYULUHAN PERTANIAN';
         });
-
-        document.getElementById('out_tgl').innerText = tglTampil;
-        document.getElementById('out_tgl_ttd').innerText = tglTampil;
 
         const renderList = (inId, outId) => {
             const outEl = document.getElementById(outId);
