@@ -32,13 +32,26 @@
             font-size: 11pt; line-height: 1.5; color: black; position: relative;
         }
 
+        /* --- PERBAIKAN MARGIN HALAMAN BARU --- */
         @media print {
-            @page { size: A4; margin: 20mm; }
+            @page { 
+                size: A4; 
+                margin: 20mm 20mm 20mm 25mm; /* Atas, Kanan, Bawah, Kiri */
+            }
             .no-print, .floating-container { display: none !important; }
-            body { background: white !important; }
+            body { background: white !important; margin: 0 !important; }
             .report-container { padding: 0 !important; margin: 0 !important; width: 100% !important; }
-            .report-page { transform: none !important; box-shadow: none !important; margin: 0 !important; padding: 0 !important; width: 100% !important; display: block !important; min-height: auto !important; }
+            .report-page { 
+                transform: none !important; 
+                box-shadow: none !important; 
+                margin: 0 !important; 
+                padding: 0 !important; /* Nol karena margin sudah diatur di @page */
+                width: 100% !important; 
+                display: block !important; 
+                min-height: auto !important; 
+            }
             tr, .foto-wrap, ul, .sig-section { page-break-inside: avoid; }
+            table { page-break-inside: auto; }
         }
 
         @media screen and (max-width: 210mm) {
@@ -74,7 +87,7 @@
                     <div class="input-group">
                         <label>Pangkat / Golongan</label>
                         <select id="in_pangkat" onchange="updateLaporan()">
-                            <option value="">-- Pilih Golongan --</option>
+                            <option value="">-- Pilih --</option>
                             <option value="Pengatur Muda (II/a)">Pengatur Muda (II/a)</option>
                             <option value="Pengatur Muda Tk.I (II/b)">Pengatur Muda Tk.I (II/b)</option>
                             <option value="Pengatur (II/c)">Pengatur (II/c)</option>
@@ -90,7 +103,7 @@
                     <div class="input-group">
                         <label>Jabatan</label>
                         <select id="in_jabatan" onchange="updateLaporan()">
-                            <option value="">-- Pilih Jabatan --</option>
+                            <option value="">-- Pilih --</option>
                             <option value="Penyuluh Pertanian Terampil">Penyuluh Pertanian Terampil</option>
                             <option value="Penyuluh Pertanian Mahir">Penyuluh Pertanian Mahir</option>
                             <option value="Penyuluh Pertanian Penyelia">Penyuluh Pertanian Penyelia</option>
@@ -100,7 +113,7 @@
                             <option value="Penyuluh Pertanian Ahli Utama">Penyuluh Pertanian Ahli Utama</option>
                         </select>
                     </div>
-                    <div class="input-group"><label>TTD Penyuluh (PNG)</label><input type="file" accept="image/png" onchange="handleTTD(this, 'out_ttd_penyuluh')"></div>
+                    <div class="input-group"><label>Unit Kerja</label><input type="text" id="in_unit" oninput="updateLaporan()" value="Kementerian Pertanian RI"></div>
                 </div>
 
                 <div class="space-y-4">
@@ -120,42 +133,44 @@
                             <option value="Pendampingan Kinerja Brigade Pangan (BP)">Pendampingan Kinerja Brigade Pangan (BP)</option>
                             <option value="Pengawalan dan Pendampingan CPCL Bantuan Pemerintah">Pengawalan dan Pendampingan CPCL Bantuan Pemerintah</option>
                             <option value="Kunjungan Tatap Muka / Anjangsana Petani">Kunjungan Tatap Muka / Anjangsana Petani</option>
+                            <option value="Penyusunan Programa Penyuluhan Pertanian">Penyusunan Programa Penyuluhan Pertanian</option>
+                            <option value="Pembuatan Media Penyuluhan (Materi Info Tani)">Pembuatan Media Penyuluhan (Materi Info Tani)</option>
                         </select>
                     </div>
-                    <div class="input-group"><label>Tanggal Kegiatan</label><input type="date" id="in_tgl_kegiatan" onchange="updateLaporan()"></div>
+                    <div class="input-group"><label>Tanggal</label><input type="date" id="in_tgl_kegiatan" onchange="updateLaporan()"></div>
                     <div class="input-group"><label>Lokasi</label><input type="text" id="in_lokasi" oninput="updateLaporan()"></div>
-                    <div class="input-group"><label>Sasaran / Peserta</label><input type="text" id="in_peserta" oninput="updateLaporan()"></div>
-                    <div class="input-group"><label>Foto Lapangan</label><input type="file" accept="image/*" onchange="handleFoto(this)"></div>
+                    <div class="input-group"><label>Sasaran</label><input type="text" id="in_peserta" oninput="updateLaporan()"></div>
                 </div>
 
                 <div class="space-y-4 bg-black/20 p-4 rounded-xl">
                     <h3 class="text-orange-400 font-bold text-xs uppercase border-b border-gray-800 pb-2">Pengesahan</h3>
                     <div class="input-group"><label>Tempat TTD</label><input type="text" id="in_tempat_ttd" oninput="updateLaporan()" value="Bola"></div>
                     <div class="input-group"><label>Tanggal Laporan</label><input type="date" id="in_tgl_ttd_manual" onchange="updateLaporan()"></div>
-                    <div class="input-group"><label>Nama Koordinator / Atasan</label><input type="text" id="in_koor_nama" oninput="updateLaporan()"></div>
-                    <div class="input-group"><label>NIP Koordinator</label><input type="text" id="in_koor_nip" oninput="updateLaporan()"></div>
-                    <div class="input-group"><label>TTD Atasan (PNG)</label><input type="file" accept="image/png" onchange="handleTTD(this, 'out_ttd_koor')"></div>
+                    <div class="input-group"><label>Nama Atasan</label><input type="text" id="in_koor_nama" oninput="updateLaporan()"></div>
+                    <div class="input-group"><label>NIP Atasan</label><input type="text" id="in_koor_nip" oninput="updateLaporan()"></div>
+                    <div class="input-group"><label>TTD Atasan</label><input type="file" accept="image/png" onchange="handleTTD(this, 'out_ttd_koor')"></div>
+                    <div class="input-group"><label>TTD Penyuluh</label><input type="file" accept="image/png" onchange="handleTTD(this, 'out_ttd_penyuluh')"></div>
                 </div>
             </div>
 
             <div class="mt-10 pt-8 border-t border-gray-800">
                 <div class="flex flex-col md:flex-row justify-between items-center gap-4 mb-6">
-                    <h3 class="text-purple-400 font-bold text-sm uppercase tracking-widest">Narasi Laporan (AI)</h3>
-                    <button onclick="generateAI()" id="btn-ai" class="bg-gradient-to-r from-purple-600 to-indigo-600 text-white text-xs font-bold py-3 px-8 rounded-xl shadow-xl transition-all">
-                        <span id="loader" class="hidden">🌀</span> ✨ Buat Narasi Otomatis
+                    <h3 class="text-purple-400 font-bold text-sm uppercase tracking-widest">Narasi AI</h3>
+                    <button onclick="generateAI()" id="btn-ai" class="bg-gradient-to-r from-purple-600 to-indigo-600 text-white text-xs font-bold py-3 px-8 rounded-xl shadow-xl">
+                        <span id="loader" class="hidden">🌀</span> ✨ Generate AI
                     </button>
                 </div>
                 <div class="space-y-4">
-                    <textarea id="in_hasil" oninput="updateLaporan()" class="w-full h-32 bg-[#262626] border border-gray-700 p-3 rounded-lg text-white" placeholder="Hasil pekerjaan..."></textarea>
+                    <textarea id="in_hasil" oninput="updateLaporan()" class="w-full h-32 bg-[#262626] border border-gray-700 p-3 rounded-lg text-white" placeholder="Hasil..."></textarea>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <textarea id="in_masalah" oninput="updateLaporan()" class="h-24 bg-[#262626] border border-gray-700 p-3 rounded-lg text-white" placeholder="Masalah..."></textarea>
-                        <textarea id="in_upaya" oninput="updateLaporan()" class="h-24 bg-[#262626] border border-gray-700 p-3 rounded-lg text-white" placeholder="Solusi..."></textarea>
+                        <textarea id="in_upaya" oninput="updateLaporan()" class="h-24 bg-[#262626] border border-gray-700 p-3 rounded-lg text-white" placeholder="Upaya..."></textarea>
                     </div>
                 </div>
             </div>
 
             <div class="mt-10">
-                <button onclick="window.print()" class="w-full bg-gradient-to-r from-emerald-600 to-teal-600 text-white font-bold py-4 rounded-xl shadow-lg transition-all">🖨️ Cetak / Simpan PDF</button>
+                <button onclick="window.print()" class="w-full bg-gradient-to-r from-emerald-600 to-teal-600 text-white font-bold py-4 rounded-xl">🖨️ Cetak Laporan</button>
             </div>
         </div>
     </div>
@@ -191,17 +206,15 @@
 
         <div id="foto_container" class="foto-wrap mb-6 hidden-element text-center">
             <img id="img_preview" src="" class="max-w-[10cm] max-h-[7cm] mx-auto border p-1">
-            <p class="text-[9pt] italic mt-1">Dokumentasi Kegiatan</p>
+            <p class="text-[9pt] italic mt-1">Dokumentasi</p>
         </div>
 
         <div class="ml-8">
-            <div class="font-bold text-sm">Masalah / Kendala:</div>
-            <ul id="out_masalah" class="ml-6 list-disc text-sm mb-2"></ul>
-            <div class="font-bold text-sm">Upaya Penanganan:</div>
-            <ul id="out_upaya" class="ml-6 list-disc text-sm"></ul>
+            <div class="font-bold text-sm">Masalah:</div><ul id="out_masalah" class="ml-6 list-disc text-sm mb-2"></ul>
+            <div class="font-bold text-sm">Upaya:</div><ul id="out_upaya" class="ml-6 list-disc text-sm"></ul>
         </div>
 
-        <div class="mt-16 flex justify-between">
+        <div class="mt-16 flex justify-between sig-section">
             <div class="text-center w-1/2">
                 Mengetahui:<br>Koordinator BPP
                 <div class="h-24 flex items-center justify-center"><img id="out_ttd_koor" class="ttd-img hidden-element"></div>
@@ -240,12 +253,10 @@
 
     function updateLaporan() {
         const fields = ['nama', 'nip', 'pangkat', 'jabatan', 'unit', 'kegiatan', 'lokasi', 'peserta', 'tempat_ttd', 'hasil', 'koor_nama', 'koor_nip', 'dasar'];
-        const tglK = document.getElementById('in_tgl_kegiatan').value;
-        const tglT = document.getElementById('in_tgl_ttd_manual').value;
         const fTgl = (v) => v ? new Date(v).toLocaleDateString('id-ID', {day:'2-digit', month:'long', year:'numeric'}) : "-";
 
-        document.getElementById('out_tgl_kegiatan').innerText = fTgl(tglK);
-        document.getElementById('out_tgl_ttd').innerText = fTgl(tglT);
+        document.getElementById('out_tgl_kegiatan').innerText = fTgl(document.getElementById('in_tgl_kegiatan').value);
+        document.getElementById('out_tgl_ttd').innerText = fTgl(document.getElementById('in_tgl_ttd_manual').value);
 
         fields.forEach(f => {
             const val = document.getElementById('in_'+f)?.value || "-";
@@ -269,31 +280,26 @@
     async function generateAI() {
         const btn = document.getElementById('btn-ai');
         const loader = document.getElementById('loader');
-        const kegiatan = document.getElementById('in_kegiatan').value;
-        const lokasi = document.getElementById('in_lokasi').value;
         const webAppUrl = "https://script.google.com/macros/s/AKfycbzyl6adPq53-R8ehwdg2-ukV0vptJ_DryM7N61BMi9WsEycXMmrj4i7EbTWPIx_X4ws/exec";
+        const keg = document.getElementById('in_kegiatan').value;
+        const lok = document.getElementById('in_lokasi').value;
 
-        if(!kegiatan || !lokasi) return alert("Isi kegiatan dan lokasi!");
+        if(!keg || !lok) return alert("Isi kegiatan dan lokasi!");
         btn.disabled = true; loader.classList.remove('hidden');
-
-        const promptAI = `Anda pakar Penyuluh Pertanian (PPL) Indonesia. Buat laporan teknis untuk kegiatan ${kegiatan} di ${lokasi}. JSON format: {"hasil":"", "masalah":[], "upaya":[]}`;
 
         try {
             const res = await fetch(webAppUrl, {
                 method: "POST",
                 headers: { "Content-Type": "text/plain;charset=utf-8" },
-                body: JSON.stringify({ prompt: promptAI })
+                body: JSON.stringify({ prompt: `Anda pakar PPL Indonesia. Buat laporan teknis kegiatan ${keg} di ${lok}. JSON format: {"hasil":"", "masalah":[], "upaya":[]}` })
             });
             const raw = await res.json();
-            let content = raw.candidates[0].content.parts[0].text.replace(/```json/g, "").replace(/```/g, "").trim();
-            const data = JSON.parse(content);
-
+            const data = JSON.parse(raw.candidates[0].content.parts[0].text.replace(/```json/g, "").replace(/```/g, "").trim());
             document.getElementById('in_hasil').value = data.hasil;
             document.getElementById('in_masalah').value = data.masalah.join('\n');
             document.getElementById('in_upaya').value = data.upaya.join('\n');
             updateLaporan();
-        } catch (e) { alert("AI sibuk, silakan coba lagi."); } 
-        finally { btn.disabled = false; loader.classList.add('hidden'); }
+        } catch (e) { alert("AI sibuk."); } finally { btn.disabled = false; loader.classList.add('hidden'); }
     }
     window.onload = updateLaporan;
 </script>
