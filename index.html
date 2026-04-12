@@ -300,6 +300,7 @@
             document.getElementById('in_masalah').value = data.masalah.join('\n');
             document.getElementById('in_upaya').value = data.upaya.join('\n');
             updateLaporan();
+           alert("✅ Kolom Pekerjaan, Masalah, & Upaya Berhasil Terisi!");
         } catch (e) { alert("AI Sibuk."); } finally { btn.disabled = false; }
     }
     window.onload = updateLaporan;
