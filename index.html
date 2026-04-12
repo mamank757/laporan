@@ -4,113 +4,46 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title id="page_title">Laporan PPL - INDONESIA</title>
+    <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/mamank757/laporantriwulan/99a53aa811aa2ca20fd3c0c0ba2194be56d2b5e6/Gemini_Generated_Image_o9onvjo9onvjo9on%20(1)%20(1).png">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
 
         /* Floating Buttons */
-        .floating-container {
-            position: fixed;
-            bottom: 30px;
-            right: 20px;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            z-index: 9999;
-        }
-
-        .floating-btn {
-            width: 50px;
-            height: 50px;
-            color: white;
-            border-radius: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-decoration: none;
-            box-shadow: 0 8px 15px rgba(0,0,0,0.3);
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-
+        .floating-container { position: fixed; bottom: 30px; right: 20px; display: flex; flex-direction: column; gap: 12px; z-index: 9999; }
+        .floating-btn { width: 50px; height: 50px; color: white; border-radius: 16px; display: flex; align-items: center; justify-content: center; text-decoration: none; box-shadow: 0 8px 15px rgba(0,0,0,0.3); transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
         .floating-home { background: linear-gradient(135deg, #0d9488, #059669); }
         .floating-tiktok { background: #000; }
         .floating-btn:hover { transform: scale(1.1) translateY(-5px); }
 
-        /* Typography & Base */
-        body { 
-            font-family: 'Inter', sans-serif; 
-            background: radial-gradient(circle at top right, #1a1a1a, #0f0f0f); 
-            color: #f3f4f6; 
-            margin: 0; 
-            padding: 0; 
-        }
+        body { font-family: 'Inter', sans-serif; background: radial-gradient(circle at top right, #1a1a1a, #0f0f0f); color: #f3f4f6; margin: 0; padding: 0; }
 
-        /* Input Styling */
-        .input-group label { 
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            font-size: 0.75rem; 
-            font-weight: 600; 
-            color: #9ca3af; 
-            margin-bottom: 6px;
-            text-transform: uppercase;
-            letter-spacing: 0.025em;
-        }
-        
-        .input-group input, .input-group textarea, .input-group select { 
-            width: 100%; 
-            background-color: #262626; 
-            border: 1px solid #404040; 
-            color: #fff;
-            padding: 12px; 
-            border-radius: 10px; 
-            font-size: 0.9rem;
-            transition: all 0.2s;
-        }
-
-        .input-group input:focus, .input-group textarea:focus, .input-group select:focus {
-            outline: none;
-            border-color: #3b82f6;
-            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
-            background-color: #2d2d2d;
-        }
+        .input-group label { display: flex; align-items: center; gap: 6px; font-size: 0.75rem; font-weight: 600; color: #9ca3af; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.025em; }
+        .input-group input, .input-group textarea, .input-group select { width: 100%; background-color: #262626; border: 1px solid #404040; color: #fff; padding: 12px; border-radius: 10px; font-size: 0.9rem; transition: all 0.2s; }
+        .input-group input:focus, .input-group textarea:focus, .input-group select:focus { outline: none; border-color: #3b82f6; box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2); background-color: #2d2d2d; }
 
         /* Report Paper */
         .report-page {
-            background: white; 
-            width: 210mm; 
-            min-height: 297mm;
-            padding: 25mm 20mm; 
-            margin: 20px auto;
+            background: white; width: 210mm; min-height: 297mm;
+            padding: 25mm 20mm; margin: 20px auto;
             box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
             font-family: 'Times New Roman', Times, serif;
-            font-size: 11pt; 
-            line-height: 1.5; 
-            color: black;
-            position: relative;
-        }
-
-        #report table td { vertical-align: top; padding: 3px 0; }
-        
-        /* Mobile Preview Logic */
-        @media screen and (max-width: 210mm) {
-            .report-container { padding: 0; overflow-x: hidden; }
-            .report-page {
-                transform: scale(calc(100vw / 210mm)); 
-                transform-origin: top left; 
-                margin: 0;
-                margin-bottom: calc(20px - (297mm * (1 - (100vw / 210mm)))); 
-                box-shadow: none;
-            }
+            font-size: 11pt; line-height: 1.5; color: black; position: relative;
         }
 
         @media print {
-            @page { size: A4; margin: 0; }
+            @page { size: A4; margin: 20mm; }
             .no-print, .floating-container { display: none !important; }
             body { background: white !important; }
-            .report-page { transform: none !important; box-shadow: none !important; margin: 0 !important; width: 210mm !important; }
+            .report-container { padding: 0 !important; margin: 0 !important; width: 100% !important; }
+            .report-page { transform: none !important; box-shadow: none !important; margin: 0 !important; padding: 0 !important; width: 100% !important; display: block !important; min-height: auto !important; }
+            tr, .foto-wrap, ul, .sig-section { page-break-inside: avoid; }
+        }
+
+        @media screen and (max-width: 210mm) {
+            .report-container { padding: 0; overflow-x: hidden; }
+            .report-page { transform: scale(calc(100vw / 210mm)); transform-origin: top left; margin: 0; margin-bottom: calc(20px - (297mm * (1 - (100vw / 210mm)))); box-shadow: none; }
         }
 
         .hidden-element { display: none; }
@@ -120,196 +53,109 @@
 <body class="pb-20">
 
 <div class="floating-container">
-    <a href="https://mamank757.github.io/PPL" class="floating-btn floating-home" title="Kembali ke Home">
-        <i class="fa-solid fa-house"></i>
-    </a>
-    <a href="https://www.tiktok.com/@generasi90blog" target="_blank" class="floating-btn floating-tiktok" title="Kunjungi TikTok">
-        <i class="fa-brands fa-tiktok"></i>
-    </a>
+    <a href="https://mamank757.github.io/PPL" class="floating-btn floating-home" title="Home"><i class="fa-solid fa-house"></i></a>
+    <a href="https://www.tiktok.com/@generasi90blog" target="_blank" class="floating-btn floating-tiktok"><i class="fa-brands fa-tiktok"></i></a>
 </div>
 
 <div class="no-print max-w-6xl mx-auto p-4 md:p-8">
     <div class="bg-[#1e1e1e] rounded-2xl shadow-2xl border border-gray-800 overflow-hidden">
         <div class="bg-gradient-to-r from-blue-700 to-indigo-800 p-6">
             <h2 class="text-xl md:text-2xl font-bold text-white flex items-center gap-3">
-                <i class="fa-solid fa-laptop"></i>
-                Digital PPL Indonesia <span class="text-sm font-light opacity-80 bg-black/20 px-3 py-1 rounded-full">Reporting Tools by King Mamank</span>
+                <i class="fa-solid fa-laptop"></i> Digital PPL Indonesia <span class="text-sm font-light opacity-80 bg-black/20 px-3 py-1 rounded-full">by King Mamank</span>
             </h2>
         </div>
 
         <div class="p-6 md:p-8">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <div class="space-y-4">
-                    <h3 class="text-blue-400 font-bold text-xs uppercase flex items-center gap-2 border-b border-gray-800 pb-2">
-                        <i class="fa-solid fa-user-tie"></i> Identitas Penyuluh
-                    </h3>
+                    <h3 class="text-blue-400 font-bold text-xs uppercase border-b border-gray-800 pb-2">Identitas</h3>
+                    <div class="input-group"><label>Nama Lengkap</label><input type="text" id="in_nama" oninput="updateLaporan()"></div>
+                    <div class="input-group"><label>NIP</label><input type="text" id="in_nip" oninput="updateLaporan()"></div>
                     <div class="input-group">
-                        <label>Nama Lengkap</label>
-                        <input type="text" id="in_nama" oninput="updateLaporan()" placeholder="cth. ABDUL RAHMAN, SP">
-                    </div>
-                    <div class="input-group">
-                        <label>Nomor Induk Pegawai (NIP)</label>
-                        <input type="text" id="in_nip" oninput="updateLaporan()" placeholder="1990xxxxxxxxxxxx">
-                    </div>
-                    <div class="input-group">
-                        <label>Golongan</label>
+                        <label>Pangkat / Golongan</label>
                         <select id="in_pangkat" onchange="updateLaporan()">
-                                                                       <option value="">-- Pilih Pangkat/Golongan --</option>
-                        <option value="Pengatur Muda (II/a)">Pengatur Muda (II/a)</option>
-                        <option value="Pengatur Muda Tk.I (II/b)">Pengatur Muda Tk.I (II/b)</option>
-                        <option value="Pengatur (II/c)">Pengatur (II/c)</option>
-                        <option value="Pengatur Tk.I (II/d)">Pengatur Tk.I (II/d)</option>
-                        <option value="Penata Muda (III/a)">Penata Muda (III/a)</option>
-                        <option value="Penata Muda Tk.I (III/b)">Penata Muda Tk.I (III/b)</option>
-                        <option value="Penata (III/c)">Penata (III/c)</option>
-                        <option value="Penata Tk.I (III/d)">Penata Tk.I (III/d)</option>
-                        <option value="Pembina (IV/a)">Pembina (IV/a)</option>
-                        <option value="Pembina Tk.I (IV/b)">Pembina Tk.I (IV/b)</option>
-                        <option value="Pembina Utama Muda (IV/c)">Pembina Utama Muda (IV/c)</option>
-                        <option value="Pembina Utama Madya (IV/d)">Pembina Utama Madya (IV/d)</option>
-                        <option value="Pembina Utama (IV/e)">Pembina Utama (IV/e)</option>
-                    </select>
+                            <option value="">-- Pilih Golongan --</option>
+                            <option value="Pengatur Muda (II/a)">Pengatur Muda (II/a)</option>
+                            <option value="Pengatur Muda Tk.I (II/b)">Pengatur Muda Tk.I (II/b)</option>
+                            <option value="Pengatur (II/c)">Pengatur (II/c)</option>
+                            <option value="Pengatur Tk.I (II/d)">Pengatur Tk.I (II/d)</option>
+                            <option value="Penata Muda (III/a)">Penata Muda (III/a)</option>
+                            <option value="Penata Muda Tk.I (III/b)">Penata Muda Tk.I (III/b)</option>
+                            <option value="Penata (III/c)">Penata (III/c)</option>
+                            <option value="Penata Tk.I (III/d)">Penata Tk.I (III/d)</option>
+                            <option value="Pembina (IV/a)">Pembina (IV/a)</option>
+                            <option value="Pembina Tk.I (IV/b)">Pembina Tk.I (IV/b)</option>
+                        </select>
                     </div>
                     <div class="input-group">
-                        <label>Jenjang Jabatan</label>
+                        <label>Jabatan</label>
                         <select id="in_jabatan" onchange="updateLaporan()">
-                              <option value="">-- Pilih Jabatan --</option>
-                        <option value="Penyuluh Pertanian Pemula">Penyuluh Pertanian Pemula</option>
-                        <option value="Penyuluh Pertanian Terampil">Penyuluh Pertanian Terampil</option>
-                        <option value="Penyuluh Pertanian Mahir">Penyuluh Pertanian Mahir</option>
-                        <option value="Penyuluh Pertanian Penyelia">Penyuluh Pertanian Penyelia</option>
-                        <option value="Penyuluh Pertanian Ahli Pertama">Penyuluh Pertanian Ahli Pertama</option>
-                        <option value="Penyuluh Pertanian Ahli Muda">Penyuluh Pertanian Ahli Muda</option>
-                        <option value="Penyuluh Pertanian Ahli Madya">Penyuluh Pertanian Ahli Madya</option>
-                        <option value="Penyuluh Pertanian Ahli Utama">Penyuluh Pertanian Ahli Utama</option>
-                    </select>
+                            <option value="">-- Pilih Jabatan --</option>
+                            <option value="Penyuluh Pertanian Terampil">Penyuluh Pertanian Terampil</option>
+                            <option value="Penyuluh Pertanian Mahir">Penyuluh Pertanian Mahir</option>
+                            <option value="Penyuluh Pertanian Penyelia">Penyuluh Pertanian Penyelia</option>
+                            <option value="Penyuluh Pertanian Ahli Pertama">Penyuluh Pertanian Ahli Pertama</option>
+                            <option value="Penyuluh Pertanian Ahli Muda">Penyuluh Pertanian Ahli Muda</option>
+                            <option value="Penyuluh Pertanian Ahli Madya">Penyuluh Pertanian Ahli Madya</option>
+                            <option value="Penyuluh Pertanian Ahli Utama">Penyuluh Pertanian Ahli Utama</option>
+                        </select>
                     </div>
-                    <div class="input-group">
-                        <label>Unit Kerja</label>
-                        <input type="text" id="in_unit" oninput="updateLaporan()" value="Kementerian Pertanian RI">
-                    </div>
-                    <div class="input-group">
-                        <label>TTD Penyuluh (PNG)</label>
-                        <input type="file" id="in_ttd_penyuluh" accept="image/png" onchange="handleTTD(this, 'out_ttd_penyuluh')">
-                    </div>
+                    <div class="input-group"><label>TTD Penyuluh (PNG)</label><input type="file" accept="image/png" onchange="handleTTD(this, 'out_ttd_penyuluh')"></div>
                 </div>
 
                 <div class="space-y-4">
-                    <h3 class="text-emerald-400 font-bold text-xs uppercase flex items-center gap-2 border-b border-gray-800 pb-2">
-                        <i class="fa-solid fa-calendar-check"></i> Detail Pelaksanaan
-                    </h3>
+                    <h3 class="text-emerald-400 font-bold text-xs uppercase border-b border-gray-800 pb-2">Kegiatan</h3>
+                    <div class="input-group"><label>Dasar Hukum</label><input type="text" id="in_dasar" oninput="updateLaporan()" value="Indikator Kinerja Penyuluh Pertanian"></div>
                     <div class="input-group">
-                        <label>Dasar Hukum</label>
-                        <input type="text" id="in_dasar" oninput="updateLaporan()" value="Indikator Kinerja Penyuluh Pertanian">
-                    </div>
-                    <div class="input-group">
-                        <label>Jenis Kegiatan</label>
+                        <label>Nama Kegiatan</label>
                         <select id="in_kegiatan" onchange="updateLaporan()">
                             <option value="">-- Pilih Kegiatan --</option>
-                             <option value="Pendampingan Peningkatan Produksi Hortikultura">Pendampingan Peningkatan Produksi Hortikultura</option>
-                        <option value="Pendampingan Hilirisasi Perkebunan">Pendampingan Hilirisasi Perkebunan</option>
-                        <option value="Pendampingan Penyediaan Benih Dan Bibit Serta Peningkatan Produksi Ternak">Pendampingan Penyediaan Benih Dan Bibit Serta Peningkatan Produksi Ternak</option>
-                        <option value="Pendampingan Pemanfaatan Alat dan Mesin Pertanian">Pendampingan Pemanfaatan Alat dan Mesin Pertanian</option>
-                        <option value="Pendampingan RDKK Pupuk Subsidi">Pendampingan RDKK Pupuk Subsidi</option>
-                        <option value="Pendampingan Survey Lokasi Cetak Sawah Rakyat (CSR)">Pendampingan Survey Lokasi Cetak Sawah Rakyat (CSR)</option>
-                        <option value="Pendampingan Pemanfaatan Irigasi Perpompaan Dan Perpipaan">Pendampingan Pemanfaatan Irigasi Perpompaan Dan Perpipaan</option>
-                        <option value="Pendampingan Kinerja Brigade Pangan (BP)">Pendampingan Kinerja Brigade Pangan (BP)</option>
-                        <option value="Pengawalan dan Pendampingan CPCL Bantuan Pemerintah">Pengawalan dan Pendampingan CPCL Bantuan Pemerintah</option>
-                    </select>
+                            <option value="Pendampingan Peningkatan Produksi Hortikultura">Pendampingan Peningkatan Produksi Hortikultura</option>
+                            <option value="Pendampingan Hilirisasi Perkebunan">Pendampingan Hilirisasi Perkebunan</option>
+                            <option value="Pendampingan Peningkatan Produksi Ternak">Pendampingan Peningkatan Produksi Ternak</option>
+                            <option value="Pendampingan Pemanfaatan Alat dan Mesin Pertanian">Pendampingan Pemanfaatan Alat dan Mesin Pertanian</option>
+                            <option value="Pendampingan RDKK Pupuk Subsidi">Pendampingan RDKK Pupuk Subsidi</option>
+                            <option value="Pendampingan Survey Lokasi Cetak Sawah Rakyat (CSR)">Pendampingan Survey Lokasi Cetak Sawah Rakyat (CSR)</option>
+                            <option value="Pendampingan Irigasi Perpompaan Dan Perpipaan">Pendampingan Irigasi Perpompaan Dan Perpipaan</option>
+                            <option value="Pendampingan Kinerja Brigade Pangan (BP)">Pendampingan Kinerja Brigade Pangan (BP)</option>
+                            <option value="Pengawalan dan Pendampingan CPCL Bantuan Pemerintah">Pengawalan dan Pendampingan CPCL Bantuan Pemerintah</option>
+                            <option value="Kunjungan Tatap Muka / Anjangsana Petani">Kunjungan Tatap Muka / Anjangsana Petani</option>
+                        </select>
                     </div>
-                    <div class="input-group">
-                        <label>Tanggal Kegiatan</label>
-                        <input type="date" id="in_tgl_kegiatan" onchange="updateLaporan()">
-                    </div>
-                    <div class="input-group">
-                        <label>Lokasi / Poktan</label>
-                        <input type="text" id="in_lokasi" oninput="updateLaporan()" placeholder="Cth. Lahan Poktan Sukamaju, Sekretariat Masselomoe">
-                    </div>
-                    <div class="input-group">
-                        <label>Volume Peserta</label>
-                        <input type="text" id="in_peserta" oninput="updateLaporan()" placeholder="Cth. 15 Orang">
-                    </div>
-                    <div class="input-group">
-                        <label>Dokumentasi (opsional/tidak wajib)</label>
-                        <div id="foto_upload_area" class="relative border-2 border-dashed border-gray-700 rounded-xl p-4 text-center hover:border-blue-500 transition cursor-pointer">
-                            <input type="file" id="in_foto" accept="image/*" onchange="handleFoto(this)" class="absolute inset-0 opacity-0 cursor-pointer">
-                            <div id="status_foto">
-                                <i class="fa-solid fa-camera text-gray-500 mb-2 text-xl"></i>
-                                <p class="text-[10px] text-gray-400">Klik atau seret foto ke sini</p>
-                            </div>
-                        </div>
-                    </div>
+                    <div class="input-group"><label>Tanggal Kegiatan</label><input type="date" id="in_tgl_kegiatan" onchange="updateLaporan()"></div>
+                    <div class="input-group"><label>Lokasi</label><input type="text" id="in_lokasi" oninput="updateLaporan()"></div>
+                    <div class="input-group"><label>Sasaran / Peserta</label><input type="text" id="in_peserta" oninput="updateLaporan()"></div>
+                    <div class="input-group"><label>Foto Lapangan</label><input type="file" accept="image/*" onchange="handleFoto(this)"></div>
                 </div>
 
-                <div class="space-y-4 bg-black/20 p-4 rounded-xl border border-gray-800/50">
-                    <h3 class="text-orange-400 font-bold text-xs uppercase flex items-center gap-2 border-b border-gray-800 pb-2">
-                        <i class="fa-solid fa-file-signature"></i> Pengesahan
-                    </h3>
-                    <div class="input-group">
-                        <label>Tempat Pengesahan TTD</label>
-                        <input type="text" id="in_tempat_ttd" oninput="updateLaporan()" placeholder="Bola">
-                    </div>
-                    <div class="input-group">
-                        <label>Tanggal Laporan</label>
-                        <input type="date" id="in_tgl_ttd_manual" onchange="updateLaporan()">
-                    </div>
-                    <div class="input-group">
-                        <label>Jabatan Penandatangan</label>
-                        <input type="text" id="in_koor_jabatan" oninput="updateLaporan()" placeholder="Koordinator BPP ....">
-                    </div>
-                    <div class="input-group">
-                        <label>Nama Pejabat</label>
-                        <input type="text" id="in_koor_nama" oninput="updateLaporan()" placeholder="Nama Koordinator">
-                    </div>
-                    <div class="input-group">
-                        <label>NIP. Pejabat</label>
-                        <input type="text" id="in_koor_nip" oninput="updateLaporan()" placeholder="19xxxxxxxxxxxxxx">
-                    </div>
-                    <div class="input-group">
-                        <label>TTD Pejabat (PNG)</label>
-                        <input type="file" id="in_ttd_koor" accept="image/png" onchange="handleTTD(this, 'out_ttd_koor')">
-                    </div>
+                <div class="space-y-4 bg-black/20 p-4 rounded-xl">
+                    <h3 class="text-orange-400 font-bold text-xs uppercase border-b border-gray-800 pb-2">Pengesahan</h3>
+                    <div class="input-group"><label>Tempat TTD</label><input type="text" id="in_tempat_ttd" oninput="updateLaporan()" value="Bola"></div>
+                    <div class="input-group"><label>Tanggal Laporan</label><input type="date" id="in_tgl_ttd_manual" onchange="updateLaporan()"></div>
+                    <div class="input-group"><label>Nama Koordinator / Atasan</label><input type="text" id="in_koor_nama" oninput="updateLaporan()"></div>
+                    <div class="input-group"><label>NIP Koordinator</label><input type="text" id="in_koor_nip" oninput="updateLaporan()"></div>
+                    <div class="input-group"><label>TTD Atasan (PNG)</label><input type="file" accept="image/png" onchange="handleTTD(this, 'out_ttd_koor')"></div>
                 </div>
             </div>
 
             <div class="mt-10 pt-8 border-t border-gray-800">
-                <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6">
-                    <div>
-                        <h3 class="text-purple-400 font-bold text-sm uppercase tracking-widest flex items-center gap-2">
-                            <i class="fa-solid fa-wand-magic-sparkles"></i> Narasi Laporan
-                        </h3>
-                        <p class="text-xs text-gray-500 mt-1">Gunakan AI untuk menyusun kalimat laporan yang profesional.</p>
-                    </div>
-                    <button onclick="generateAI()" id="btn-ai" class="bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white text-xs font-bold py-3 px-8 rounded-xl shadow-xl transition-all active:scale-95 flex items-center gap-2">
-                        <span id="loader" class="hidden animate-spin">🌀</span> ✨ Buat Narasi Otomatis
+                <div class="flex flex-col md:flex-row justify-between items-center gap-4 mb-6">
+                    <h3 class="text-purple-400 font-bold text-sm uppercase tracking-widest">Narasi Laporan (AI)</h3>
+                    <button onclick="generateAI()" id="btn-ai" class="bg-gradient-to-r from-purple-600 to-indigo-600 text-white text-xs font-bold py-3 px-8 rounded-xl shadow-xl transition-all">
+                        <span id="loader" class="hidden">🌀</span> ✨ Buat Narasi Otomatis
                     </button>
                 </div>
-                
                 <div class="space-y-4">
-                    <div class="input-group">
-                        <label>Deskripsi Hasil Kegiatan (edit jika tdk sesuai)</label>
-                        <textarea id="in_hasil" oninput="updateLaporan()" class="h-32 resize-none" placeholder="Uraikan proses dan capaian kegiatan..."></textarea>
-                    </div>
+                    <textarea id="in_hasil" oninput="updateLaporan()" class="w-full h-32 bg-[#262626] border border-gray-700 p-3 rounded-lg text-white" placeholder="Hasil pekerjaan..."></textarea>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div class="input-group">
-                            <label>Kendala di Lapangan (edit jika tdk sesuai)</label>
-                            <textarea id="in_masalah" oninput="updateLaporan()" class="h-24 resize-none" placeholder="Satu baris untuk satu masalah..."></textarea>
-                        </div>
-                        <div class="input-group">
-                            <label>Solusi / Tindak Lanjut (edit jika tdk sesuai)</label>
-                            <textarea id="in_upaya" oninput="updateLaporan()" class="h-24 resize-none" placeholder="Satu baris untuk satu solusi..."></textarea>
-                        </div>
+                        <textarea id="in_masalah" oninput="updateLaporan()" class="h-24 bg-[#262626] border border-gray-700 p-3 rounded-lg text-white" placeholder="Masalah..."></textarea>
+                        <textarea id="in_upaya" oninput="updateLaporan()" class="h-24 bg-[#262626] border border-gray-700 p-3 rounded-lg text-white" placeholder="Solusi..."></textarea>
                     </div>
                 </div>
             </div>
 
-            <div class="mt-10 flex flex-col md:flex-row gap-4">
-                <button onclick="updateLaporan()" class="flex-1 bg-gray-700 hover:bg-gray-600 text-white font-bold py-4 rounded-xl shadow-lg transition-all flex items-center justify-center gap-2">
-                    <i class="fa-solid fa-arrows-rotate"></i> Perbarui Pratinjau
-                </button>
-                <button onclick="window.print()" class="flex-1 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-bold py-4 rounded-xl shadow-lg transition-all flex items-center justify-center gap-2">
-                    <i class="fa-solid fa-file-pdf"></i> Simpan ke PDF / Cetak
-                </button>
+            <div class="mt-10">
+                <button onclick="window.print()" class="w-full bg-gradient-to-r from-emerald-600 to-teal-600 text-white font-bold py-4 rounded-xl shadow-lg transition-all">🖨️ Cetak / Simpan PDF</button>
             </div>
         </div>
     </div>
@@ -327,56 +173,44 @@
             <tr><td></td><td>b. Pangkat / Golongan</td><td>: <span id="out_pangkat"></span></td></tr>
             <tr><td></td><td>c. Jabatan</td><td>: <span id="out_jabatan"></span></td></tr>
             <tr><td></td><td>d. Unit Kerja</td><td>: <span id="out_unit"></span></td></tr>
-            
             <tr class="h-2"></tr>
             <tr><td class="font-bold">2.</td><td class="font-bold">Dasar Pelaksanaan</td><td>: <span id="out_dasar"></span></td></tr>
             <tr><td class="font-bold">3.</td><td class="font-bold">Nama Kegiatan</td><td>: <span id="out_kegiatan"></span></td></tr>
-            
             <tr class="h-2"></tr>
             <tr><td class="font-bold">4.</td><td colspan="2" class="font-bold">Waktu dan Lokasi</td></tr>
-            <tr><td></td><td>a. Tanggal Kegiatan</td><td>: <span id="out_tgl_kegiatan"></span></td></tr>
-            <tr><td></td><td>b. Tempat/Lokasi</td><td>: <span id="out_lokasi"></span></td></tr>
-            <tr><td></td><td>c. Jumlah Sasaran</td><td>: <span id="out_peserta"></span></td></tr>
-            
+            <tr><td></td><td>a. Tanggal</td><td>: <span id="out_tgl_kegiatan"></span></td></tr>
+            <tr><td></td><td>b. Lokasi</td><td>: <span id="out_lokasi"></span></td></tr>
+            <tr><td></td><td>c. Sasaran</td><td>: <span id="out_peserta"></span></td></tr>
             <tr class="h-2"></tr>
             <tr><td class="font-bold">5.</td><td class="font-bold">Uraian Pekerjaan</td><td>:</td></tr>
         </table>
 
-        <div class="ml-8 text-justify mb-4 whitespace-pre-line min-h-[100px]">
+        <div class="ml-8 text-justify mb-4 whitespace-pre-line text-sm">
             <span id="out_hasil"></span>
         </div>
 
         <div id="foto_container" class="foto-wrap mb-6 hidden-element text-center">
-            <img id="img_preview" src="" class="max-w-[10cm] max-h-[7cm] mx-auto border border-gray-300 p-1" alt="Foto">
-            <p class="text-[9pt] italic mt-1">Lampiran: Dokumentasi Lapangan</p>
+            <img id="img_preview" src="" class="max-w-[10cm] max-h-[7cm] mx-auto border p-1">
+            <p class="text-[9pt] italic mt-1">Dokumentasi Kegiatan</p>
         </div>
 
-        <div class="ml-8 grid grid-cols-1 gap-4">
-            <div>
-                <div class="font-bold text-sm">Masalah / Kendala:</div>
-                <ul id="out_masalah" class="ml-6 list-disc text-sm"></ul>
-            </div>
-            <div>
-                <div class="font-bold text-sm">Upaya Penanganan:</div>
-                <ul id="out_upaya" class="ml-6 list-disc text-sm"></ul>
-            </div>
+        <div class="ml-8">
+            <div class="font-bold text-sm">Masalah / Kendala:</div>
+            <ul id="out_masalah" class="ml-6 list-disc text-sm mb-2"></ul>
+            <div class="font-bold text-sm">Upaya Penanganan:</div>
+            <ul id="out_upaya" class="ml-6 list-disc text-sm"></ul>
         </div>
 
-        <div class="mt-16 flex justify-between gap-10">
+        <div class="mt-16 flex justify-between">
             <div class="text-center w-1/2">
-                Mengetahui:<br><span id="out_koor_jabatan"></span>
-                <div class="h-24 flex items-center justify-center">
-                    <img id="out_ttd_koor" class="ttd-img hidden-element">
-                </div>
+                Mengetahui:<br>Koordinator BPP
+                <div class="h-24 flex items-center justify-center"><img id="out_ttd_koor" class="ttd-img hidden-element"></div>
                 <div id="out_koor_nama" class="font-bold underline"></div>
                 NIP. <span id="out_koor_nip"></span>
             </div>
             <div class="text-center w-1/2">
-                <span id="out_tempat_ttd"></span>, <span id="out_tgl_ttd"></span><br>
-                Penyuluh Pertanian,
-                <div class="h-24 flex items-center justify-center">
-                    <img id="out_ttd_penyuluh" class="ttd-img hidden-element">
-                </div>
+                <span id="out_tempat_ttd"></span>, <span id="out_tgl_ttd"></span><br>Penyuluh Pertanian,
+                <div class="h-24 flex items-center justify-center"><img id="out_ttd_penyuluh" class="ttd-img hidden-element"></div>
                 <div id="sig_nama" class="font-bold underline"></div>
                 NIP. <span id="sig_nip"></span>
             </div>
@@ -388,32 +222,10 @@
     function handleFoto(input) {
         const container = document.getElementById('foto_container');
         const img = document.getElementById('img_preview');
-        const statusArea = document.getElementById('status_foto');
-        const uploadBox = document.getElementById('foto_upload_area');
-        
         if (input.files && input.files[0]) {
             const reader = new FileReader();
-            reader.onload = (e) => { 
-                img.src = e.target.result; 
-                container.classList.remove('hidden-element'); 
-                
-                uploadBox.classList.remove('border-gray-700');
-                uploadBox.classList.add('border-emerald-500', 'bg-emerald-500/10');
-                statusArea.innerHTML = `
-                    <i class="fa-solid fa-circle-check text-emerald-500 mb-2 text-xl"></i>
-                    <p class="text-[10px] text-emerald-400 font-bold">FOTO BERHASIL TERUPLOAD</p>
-                    <p class="text-[9px] text-gray-500">${input.files[0].name}</p>
-                `;
-            };
+            reader.onload = (e) => { img.src = e.target.result; container.classList.remove('hidden-element'); };
             reader.readAsDataURL(input.files[0]);
-        } else { 
-            container.classList.add('hidden-element'); 
-            uploadBox.classList.add('border-gray-700');
-            uploadBox.classList.remove('border-emerald-500', 'bg-emerald-500/10');
-            statusArea.innerHTML = `
-                <i class="fa-solid fa-camera text-gray-500 mb-2 text-xl"></i>
-                <p class="text-[10px] text-gray-400">Klik atau seret foto ke sini</p>
-            `;
         }
     }
 
@@ -421,56 +233,37 @@
         const img = document.getElementById(targetId);
         if (input.files && input.files[0]) {
             const reader = new FileReader();
-            reader.onload = (e) => {
-                img.src = e.target.result;
-                img.classList.remove('hidden-element');
-            };
+            reader.onload = (e) => { img.src = e.target.result; img.classList.remove('hidden-element'); };
             reader.readAsDataURL(input.files[0]);
-        } else {
-            img.classList.add('hidden-element');
         }
     }
 
     function updateLaporan() {
-        const fields = ['nama', 'nip', 'pangkat', 'jabatan', 'unit', 'kegiatan', 'lokasi', 'peserta', 'tempat_ttd', 'hasil', 'koor_jabatan', 'koor_nama', 'koor_nip', 'dasar'];
-        const formatTgl = (val) => {
-            if(!val) return "-";
-            const d = new Date(val);
-            return d.toLocaleDateString('id-ID', { day: '2-digit', month: 'long', year: 'numeric' });
-        }
+        const fields = ['nama', 'nip', 'pangkat', 'jabatan', 'unit', 'kegiatan', 'lokasi', 'peserta', 'tempat_ttd', 'hasil', 'koor_nama', 'koor_nip', 'dasar'];
+        const tglK = document.getElementById('in_tgl_kegiatan').value;
+        const tglT = document.getElementById('in_tgl_ttd_manual').value;
+        const fTgl = (v) => v ? new Date(v).toLocaleDateString('id-ID', {day:'2-digit', month:'long', year:'numeric'}) : "-";
 
-        const tglKegiatanRaw = document.getElementById('in_tgl_kegiatan').value;
-        document.getElementById('out_tgl_kegiatan').innerText = formatTgl(tglKegiatanRaw);
-
-        const tglTTDRaw = document.getElementById('in_tgl_ttd_manual').value;
-        const tglTTDOtomatis = new Date().toLocaleDateString('id-ID', { day: '2-digit', month: 'long', year: 'numeric' });
-        document.getElementById('out_tgl_ttd').innerText = tglTTDRaw ? formatTgl(tglTTDRaw) : tglTTDOtomatis;
+        document.getElementById('out_tgl_kegiatan').innerText = fTgl(tglK);
+        document.getElementById('out_tgl_ttd').innerText = fTgl(tglT);
 
         fields.forEach(f => {
-            const elInput = document.getElementById('in_' + f);
-            if (!elInput) return;
-            const val = elInput.value || (f === 'kegiatan' ? 'PENYULUHAN PERTANIAN' : '-');
-            
-            if (document.getElementById('out_' + f)) document.getElementById('out_' + f).innerText = val;
-            if(f === 'nama') document.getElementById('sig_nama').innerText = val;
-            if(f === 'nip') document.getElementById('sig_nip').innerText = val;
-            if(f === 'kegiatan') document.getElementById('out_judul_kegiatan').innerText = elInput.value ? elInput.value.toUpperCase() : 'PENYULUHAN PERTANIAN';
+            const val = document.getElementById('in_'+f)?.value || "-";
+            if (document.getElementById('out_'+f)) document.getElementById('out_'+f).innerText = val;
+            if (f === 'nama') document.getElementById('sig_nama').innerText = val;
+            if (f === 'nip') document.getElementById('sig_nip').innerText = val;
+            if (f === 'kegiatan') document.getElementById('out_judul_kegiatan').innerText = val.toUpperCase();
         });
 
-        const renderList = (inId, outId) => {
-            const outEl = document.getElementById(outId);
-            const inEl = document.getElementById(inId);
-            outEl.innerHTML = "";
-            inEl.value.split('\n').forEach(t => {
-                if(t.trim()){ 
-                    const li = document.createElement('li'); 
-                    li.innerText = t.trim(); 
-                    outEl.appendChild(li); 
-                }
+        const rList = (i, o) => {
+            const out = document.getElementById(o);
+            out.innerHTML = "";
+            document.getElementById(i).value.split('\n').filter(t => t.trim()).forEach(t => {
+                const li = document.createElement('li'); li.innerText = t; out.appendChild(li);
             });
         };
-        renderList('in_masalah', 'out_masalah');
-        renderList('in_upaya', 'out_upaya');
+        rList('in_masalah', 'out_masalah');
+        rList('in_upaya', 'out_upaya');
     }
 
     async function generateAI() {
@@ -478,28 +271,28 @@
         const loader = document.getElementById('loader');
         const kegiatan = document.getElementById('in_kegiatan').value;
         const lokasi = document.getElementById('in_lokasi').value;
-        const groqApiKey = "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"; 
+        const webAppUrl = "https://script.google.com/macros/s/AKfycbzyl6adPq53-R8ehwdg2-ukV0vptJ_DryM7N61BMi9WsEycXMmrj4i7EbTWPIx_X4ws/exec";
 
-        if(!kegiatan || !lokasi) return alert("Pilih kegiatan dan lokasi dulu!");
+        if(!kegiatan || !lokasi) return alert("Isi kegiatan dan lokasi!");
         btn.disabled = true; loader.classList.remove('hidden');
 
+        const promptAI = `Anda pakar Penyuluh Pertanian (PPL) Indonesia. Buat laporan teknis untuk kegiatan ${kegiatan} di ${lokasi}. JSON format: {"hasil":"", "masalah":[], "upaya":[]}`;
+
         try {
-            const res = await fetch("https://api.groq.com/openai/v1/chat/completions", {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${groqApiKey}` },
-                body: JSON.stringify({ 
-                    model: "llama-3.3-70b-versatile", 
-                    messages: [{ role: "user", content: `Buat laporan formal PPL singkat untuk kegiatan ${kegiatan} di ${lokasi}. Gunakan bahasa Indonesia formal. JSON format: {"deskripsi":"", "masalah":[], "upaya":[]}` }],
-                    response_format: { type: "json_object" }
-                })
+            const res = await fetch(webAppUrl, {
+                method: "POST",
+                headers: { "Content-Type": "text/plain;charset=utf-8" },
+                body: JSON.stringify({ prompt: promptAI })
             });
-            const data = await res.json();
-            const result = JSON.parse(data.choices[0].message.content);
-            document.getElementById('in_hasil').value = result.deskripsi;
-            document.getElementById('in_masalah').value = result.masalah.join('\n');
-            document.getElementById('in_upaya').value = result.upaya.join('\n');
+            const raw = await res.json();
+            let content = raw.candidates[0].content.parts[0].text.replace(/```json/g, "").replace(/```/g, "").trim();
+            const data = JSON.parse(content);
+
+            document.getElementById('in_hasil').value = data.hasil;
+            document.getElementById('in_masalah').value = data.masalah.join('\n');
+            document.getElementById('in_upaya').value = data.upaya.join('\n');
             updateLaporan();
-        } catch (e) { alert("Gagal memproses data AI karena banyak pengguna, silakan coba lagi."); } 
+        } catch (e) { alert("AI sibuk, silakan coba lagi."); } 
         finally { btn.disabled = false; loader.classList.add('hidden'); }
     }
     window.onload = updateLaporan;
