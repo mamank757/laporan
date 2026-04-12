@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title id="page_title">Laporan PPL - INDONESIA</title>
+    <title id="page_title">Laporan PPL - INDONESIA (F4)</title>
     <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/mamank757/laporantriwulan/99a53aa811aa2ca20fd3c0c0ba2194be56d2b5e6/Gemini_Generated_Image_o9onvjo9onvjo9on%20(1)%20(1).png">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -23,20 +23,22 @@
         .input-group input, .input-group textarea, .input-group select { width: 100%; background-color: #262626; border: 1px solid #404040; color: #fff; padding: 12px; border-radius: 10px; font-size: 0.9rem; transition: all 0.2s; }
         .input-group input:focus, .input-group textarea:focus, .input-group select:focus { outline: none; border-color: #3b82f6; box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2); background-color: #2d2d2d; }
 
-        /* Report Paper */
+        /* --- PENYESUAIAN UKURAN F4 (215mm x 330mm) --- */
         .report-page {
-            background: white; width: 210mm; min-height: 297mm;
-            padding: 25mm 20mm; margin: 20px auto;
+            background: white; 
+            width: 215mm; 
+            min-height: 330mm;
+            padding: 25mm 20mm; 
+            margin: 20px auto;
             box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
             font-family: 'Times New Roman', Times, serif;
             font-size: 11pt; line-height: 1.5; color: black; position: relative;
         }
 
-        /* --- PERBAIKAN MARGIN HALAMAN BARU --- */
         @media print {
             @page { 
-                size: A4; 
-                margin: 20mm 20mm 20mm 20mm; /* Atas, Kanan, Bawah, Kiri */
+                size: 215mm 330mm; 
+                margin: 20mm 15mm 20mm 20mm; 
             }
             .no-print, .floating-container { display: none !important; }
             body { background: white !important; margin: 0 !important; }
@@ -45,18 +47,23 @@
                 transform: none !important; 
                 box-shadow: none !important; 
                 margin: 0 !important; 
-                padding: 0 !important; /* Nol karena margin sudah diatur di @page */
+                padding: 0 !important; 
                 width: 100% !important; 
                 display: block !important; 
                 min-height: auto !important; 
             }
             tr, .foto-wrap, ul, .sig-section { page-break-inside: avoid; }
-            table { page-break-inside: auto; }
         }
 
-        @media screen and (max-width: 210mm) {
+        @media screen and (max-width: 215mm) {
             .report-container { padding: 0; overflow-x: hidden; }
-            .report-page { transform: scale(calc(100vw / 210mm)); transform-origin: top left; margin: 0; margin-bottom: calc(20px - (297mm * (1 - (100vw / 210mm)))); box-shadow: none; }
+            .report-page { 
+                transform: scale(calc(100vw / 215mm)); 
+                transform-origin: top left; 
+                margin: 0; 
+                margin-bottom: calc(20px - (330mm * (1 - (100vw / 215mm)))); 
+                box-shadow: none; 
+            }
         }
 
         .hidden-element { display: none; }
@@ -74,7 +81,7 @@
     <div class="bg-[#1e1e1e] rounded-2xl shadow-2xl border border-gray-800 overflow-hidden">
         <div class="bg-gradient-to-r from-blue-700 to-indigo-800 p-6">
             <h2 class="text-xl md:text-2xl font-bold text-white flex items-center gap-3">
-                <i class="fa-solid fa-laptop"></i> Digital PPL Indonesia <span class="text-sm font-light opacity-80 bg-black/20 px-3 py-1 rounded-full">by King Mamank</span>
+                <i class="fa-solid fa-laptop"></i> Digital PPL Indonesia (F4) <span class="text-sm font-light opacity-80 bg-black/20 px-3 py-1 rounded-full">by King Mamank</span>
             </h2>
         </div>
 
@@ -110,7 +117,6 @@
                             <option value="Penyuluh Pertanian Ahli Pertama">Penyuluh Pertanian Ahli Pertama</option>
                             <option value="Penyuluh Pertanian Ahli Muda">Penyuluh Pertanian Ahli Muda</option>
                             <option value="Penyuluh Pertanian Ahli Madya">Penyuluh Pertanian Ahli Madya</option>
-                            <option value="Penyuluh Pertanian Ahli Utama">Penyuluh Pertanian Ahli Utama</option>
                         </select>
                     </div>
                     <div class="input-group"><label>Unit Kerja</label><input type="text" id="in_unit" oninput="updateLaporan()" value="Kementerian Pertanian RI"></div>
@@ -122,24 +128,22 @@
                     <div class="input-group">
                         <label>Nama Kegiatan</label>
                         <select id="in_kegiatan" onchange="updateLaporan()">
-                            <option value="">-- Pilih Kegiatan --</option>
-                            <option value="Pendampingan Peningkatan Produksi Hortikultura">Pendampingan Peningkatan Produksi Hortikultura</option>
-                            <option value="Pendampingan Hilirisasi Perkebunan">Pendampingan Hilirisasi Perkebunan</option>
-                            <option value="Pendampingan Peningkatan Produksi Ternak">Pendampingan Peningkatan Produksi Ternak</option>
-                            <option value="Pendampingan Pemanfaatan Alat dan Mesin Pertanian">Pendampingan Pemanfaatan Alat dan Mesin Pertanian</option>
-                            <option value="Pendampingan RDKK Pupuk Subsidi">Pendampingan RDKK Pupuk Subsidi</option>
-                            <option value="Pendampingan Survey Lokasi Cetak Sawah Rakyat (CSR)">Pendampingan Survey Lokasi Cetak Sawah Rakyat (CSR)</option>
-                            <option value="Pendampingan Irigasi Perpompaan Dan Perpipaan">Pendampingan Irigasi Perpompaan Dan Perpipaan</option>
-                            <option value="Pendampingan Kinerja Brigade Pangan (BP)">Pendampingan Kinerja Brigade Pangan (BP)</option>
-                            <option value="Pengawalan dan Pendampingan CPCL Bantuan Pemerintah">Pengawalan dan Pendampingan CPCL Bantuan Pemerintah</option>
-                            <option value="Kunjungan Tatap Muka / Anjangsana Petani">Kunjungan Tatap Muka / Anjangsana Petani</option>
-                            <option value="Penyusunan Programa Penyuluhan Pertanian">Penyusunan Programa Penyuluhan Pertanian</option>
-                            <option value="Pembuatan Media Penyuluhan (Materi Info Tani)">Pembuatan Media Penyuluhan (Materi Info Tani)</option>
-                        </select>
+                           <option value="">-- Pilih Kegiatan --</option>
+                    <option value="Pendampingan Peningkatan Produksi Hortikultura">Pendampingan Peningkatan Produksi Hortikultura</option>
+                    <option value="Pendampingan Hilirisasi Perkebunan">Pendampingan Hilirisasi Perkebunan</option>
+                    <option value="Pendampingan Penyediaan Benih Dan Bibit Serta Peningkatan Produksi Ternak">Pendampingan Penyediaan Benih Dan Bibit Serta Peningkatan Produksi Ternak</option>
+                    <option value="Pendampingan Pemanfaatan Alat dan Mesin Pertanian">Pendampingan Pemanfaatan Alat dan Mesin Pertanian</option>
+                    <option value="Pendampingan RDKK Pupuk Subsidi">Pendampingan RDKK Pupuk Subsidi</option>
+                    <option value="Pendampingan Survey Lokasi Cetak Sawah Rakyat (CSR)">Pendampingan Survey Lokasi Cetak Sawah Rakyat (CSR)</option>
+                    <option value="Pendampingan Pemanfaatan Irigasi Perpompaan Dan Perpipaan">Pendampingan Pemanfaatan Irigasi Perpompaan Dan Perpipaan</option>
+                    <option value="Pendampingan Kinerja Brigade Pangan (BP)">Pendampingan Kinerja Brigade Pangan (BP)</option>
+                    <option value="Pengawalan dan Pendampingan CPCL Bantuan Pemerintah">Pengawalan dan Pendampingan CPCL Bantuan Pemerintah</option>
+                </select>
                     </div>
                     <div class="input-group"><label>Tanggal</label><input type="date" id="in_tgl_kegiatan" onchange="updateLaporan()"></div>
                     <div class="input-group"><label>Lokasi</label><input type="text" id="in_lokasi" oninput="updateLaporan()"></div>
                     <div class="input-group"><label>Sasaran</label><input type="text" id="in_peserta" oninput="updateLaporan()"></div>
+                    <div class="input-group"><label>Foto Lapangan</label><input type="file" accept="image/*" onchange="handleFoto(this)"></div>
                 </div>
 
                 <div class="space-y-4 bg-black/20 p-4 rounded-xl">
@@ -156,21 +160,19 @@
             <div class="mt-10 pt-8 border-t border-gray-800">
                 <div class="flex flex-col md:flex-row justify-between items-center gap-4 mb-6">
                     <h3 class="text-purple-400 font-bold text-sm uppercase tracking-widest">Narasi AI</h3>
-                    <button onclick="generateAI()" id="btn-ai" class="bg-gradient-to-r from-purple-600 to-indigo-600 text-white text-xs font-bold py-3 px-8 rounded-xl shadow-xl">
-                        <span id="loader" class="hidden">🌀</span> ✨ Generate AI
-                    </button>
+                    <button onclick="generateAI()" id="btn-ai" class="bg-gradient-to-r from-purple-600 to-indigo-600 text-white text-xs font-bold py-3 px-8 rounded-xl shadow-xl transition-all">✨ Generate AI</button>
                 </div>
                 <div class="space-y-4">
                     <textarea id="in_hasil" oninput="updateLaporan()" class="w-full h-32 bg-[#262626] border border-gray-700 p-3 rounded-lg text-white" placeholder="Hasil..."></textarea>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <textarea id="in_masalah" oninput="updateLaporan()" class="h-24 bg-[#262626] border border-gray-700 p-3 rounded-lg text-white" placeholder="Masalah..."></textarea>
-                        <textarea id="in_upaya" oninput="updateLaporan()" class="h-24 bg-[#262626] border border-gray-700 p-3 rounded-lg text-white" placeholder="Upaya..."></textarea>
+                        <textarea id="in_upaya" oninput="updateLaporan()" class="h-24 bg-[#262626] border border-gray-700 p-3 rounded-lg text-white" placeholder="Solusi..."></textarea>
                     </div>
                 </div>
             </div>
 
             <div class="mt-10">
-                <button onclick="window.print()" class="w-full bg-gradient-to-r from-emerald-600 to-teal-600 text-white font-bold py-4 rounded-xl">🖨️ Cetak Laporan</button>
+                <button onclick="window.print()" class="w-full bg-gradient-to-r from-emerald-600 to-teal-600 text-white font-bold py-4 rounded-xl">🖨️ Cetak Laporan (F4)</button>
             </div>
         </div>
     </div>
@@ -205,8 +207,8 @@
         </div>
 
         <div id="foto_container" class="foto-wrap mb-6 hidden-element text-center">
-            <img id="img_preview" src="" class="max-w-[10cm] max-h-[7cm] mx-auto border p-1">
-            <p class="text-[9pt] italic mt-1">Dokumentasi</p>
+            <img id="img_preview" src="" class="max-w-[12cm] max-h-[8cm] mx-auto border p-1 shadow-sm">
+            <p class="text-[9pt] italic mt-1">Lampiran Dokumentasi Lapangan</p>
         </div>
 
         <div class="ml-8">
@@ -218,13 +220,13 @@
             <div class="text-center w-1/2">
                 Mengetahui:<br>Koordinator BPP
                 <div class="h-24 flex items-center justify-center"><img id="out_ttd_koor" class="ttd-img hidden-element"></div>
-                <div id="out_koor_nama" class="font-bold underline"></div>
+                <div id="out_koor_nama" class="font-bold underline uppercase"></div>
                 NIP. <span id="out_koor_nip"></span>
             </div>
             <div class="text-center w-1/2">
                 <span id="out_tempat_ttd"></span>, <span id="out_tgl_ttd"></span><br>Penyuluh Pertanian,
                 <div class="h-24 flex items-center justify-center"><img id="out_ttd_penyuluh" class="ttd-img hidden-element"></div>
-                <div id="sig_nama" class="font-bold underline"></div>
+                <div id="sig_nama" class="font-bold underline uppercase"></div>
                 NIP. <span id="sig_nip"></span>
             </div>
         </div>
@@ -279,19 +281,18 @@
 
     async function generateAI() {
         const btn = document.getElementById('btn-ai');
-        const loader = document.getElementById('loader');
         const webAppUrl = "https://script.google.com/macros/s/AKfycbzyl6adPq53-R8ehwdg2-ukV0vptJ_DryM7N61BMi9WsEycXMmrj4i7EbTWPIx_X4ws/exec";
         const keg = document.getElementById('in_kegiatan').value;
         const lok = document.getElementById('in_lokasi').value;
 
         if(!keg || !lok) return alert("Isi kegiatan dan lokasi!");
-        btn.disabled = true; loader.classList.remove('hidden');
+        btn.disabled = true;
 
         try {
             const res = await fetch(webAppUrl, {
                 method: "POST",
                 headers: { "Content-Type": "text/plain;charset=utf-8" },
-                body: JSON.stringify({ prompt: `Anda pakar PPL Indonesia. Buat laporan teknis kegiatan ${keg} di ${lok}. JSON format: {"hasil":"", "masalah":[], "upaya":[]}` })
+                body: JSON.stringify({ prompt: `Anda pakar PPL. Buat laporan teknis kegiatan ${keg} di ${lok}. JSON: {"hasil":"", "masalah":[], "upaya":[]}` })
             });
             const raw = await res.json();
             const data = JSON.parse(raw.candidates[0].content.parts[0].text.replace(/```json/g, "").replace(/```/g, "").trim());
@@ -299,7 +300,7 @@
             document.getElementById('in_masalah').value = data.masalah.join('\n');
             document.getElementById('in_upaya').value = data.upaya.join('\n');
             updateLaporan();
-        } catch (e) { alert("AI sibuk."); } finally { btn.disabled = false; loader.classList.add('hidden'); }
+        } catch (e) { alert("AI Sibuk."); } finally { btn.disabled = false; }
     }
     window.onload = updateLaporan;
 </script>
