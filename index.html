@@ -292,7 +292,7 @@
             const res = await fetch(webAppUrl, {
                 method: "POST",
                 headers: { "Content-Type": "text/plain;charset=utf-8" },
-                body: JSON.stringify({ prompt: `Anda pakar PPL. Buat laporan teknis kegiatan ${keg} di ${lok}. JSON: {"hasil":"", "masalah":[], "upaya":[]}` })
+                body: JSON.stringify({ prompt: `Anda pakar PPL. Buat laporan dengan narasi singkat (2 kalimat) teknis kegiatan ${keg} di ${lok}. JSON: {"hasil":"", "masalah":[], "upaya":[]}` })
             });
             const raw = await res.json();
             const data = JSON.parse(raw.candidates[0].content.parts[0].text.replace(/```json/g, "").replace(/```/g, "").trim());
