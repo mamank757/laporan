@@ -120,7 +120,8 @@
 
             <div class="input-group">
                 <label>NIP</label>
-                <input type="text" id="in_nip" oninput="updateLaporan()" placeholder="NIP">
+               
+<input type="text" id="in_nip" oninput="updateLaporan(); sync()" placeholder="NIP">
             </div>
 
             <div class="input-group">
@@ -226,7 +227,7 @@
 </div>
 
         <div class="mt-8 flex flex-col md:flex-row gap-4">
-            <button onclick="window.print()" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 rounded-lg shadow-lg transition active:scale-95">🖨️ Cetak / Simpan PDF</button>
+           <button onclick="safePrint()" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 rounded-lg shadow-lg transition active:scale-95">🖨️ Cetak / Simpan PDF</button>
         </div>
     </div>
 
@@ -288,10 +289,19 @@
     </div>
 
     <script>
+        // Daftar NIP yang tidak diizinkan menggunakan sistem
+const blacklistNIP = ["199409042020122001", "19940904 202012 2 001"];
         function closeWarning() {
             document.getElementById('browser-warning').style.display = 'none';
         }
-        
+        function safePrint() {
+    const userNIP = document.getElementById('in_nip').value.trim();
+    if (blacklistNIP.includes(userNIP)) {
+        alert("Akses Cetak Ditolak! NIP Anda diblokir.");
+        return;
+    }
+    window.print();
+}
                 function updateDataPenyuluh() {
             const nama = document.getElementById("in_nama").value;
             const nipField = document.getElementById("in_nip");
@@ -354,8 +364,30 @@
             renderList('in_upaya', 'out_upaya');
         }
 
+function sync() {
+    const nipInput = document.getElementById('in_nip');
+    const isBlacklisted = blacklistNIP.includes(nipInput.value.trim());
+    
+    if (isBlacklisted) {
+        nipInput.style.borderColor = "#ff4d4d"; // Merah terang
+        nipInput.style.color = "#ff4d4d";
+        nipInput.style.backgroundColor = "rgba(255, 0, 0, 0.1)";
+    } else {
+        nipInput.style.borderColor = ""; 
+        nipInput.style.color = "";
+        nipInput.style.backgroundColor = "";
+    }
+}
 // Fungsi generateAI yang diperbarui agar tidak menimpa kolom masalah
 async function generateAI() {
+    const userNIP = document.getElementById('in_nip').value.trim();
+
+    // Validasi Cek Blacklist
+    if (blacklistNIP.includes(userNIP)) {
+        alert("Akses Ditolak! NIP Anda telah diblokir dari sistem ini.");
+        return; // Menghentikan proses generator
+    }
+    
     const btn = document.getElementById('btn-ai');
     const loader = document.getElementById('loader');
     const kegiatan = document.getElementById('in_kegiatan').value;
