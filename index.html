@@ -75,22 +75,34 @@
             }
         }
 
-        /* PRINT SETTINGS */
-        @media print {
-            @page { size: F4; margin: 0; }
-            body { background: white !important; }
-            .no-print, .floating-container, #browser-warning { display: none !important; }
-            .report-container { padding: 0 !important; background: white !important; display: block !important; }
-            .report-page { 
-                transform: none !important; margin: 0 !important; box-shadow: none !important; 
-                padding: 15mm !important; width: 215mm !important; 
-            }
-        }
-
+        /* UPDATE PADA BAGIAN PRINT SETTINGS */
+@media print {
+    @page { 
+        size: 215mm 330mm; /* Ukuran F4 Standar */
+        margin: 15mm; 
+    }
+    body { background: white; }
+    .no-print, .floating-container, #browser-warning, .max-w-5xl, header, .input-card, button { 
+        display: none !important; 
+    }
+    .report-container { 
+        display: block !important; 
+        padding: 0 !important; 
+        margin: 0 !important;
+        background: white !important;
+    }
+    .report-page {
+        box-shadow: none !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        width: 100% !important;
+        border: none !important;
+    }
+}
         .hidden-element { display: none !important; }
         .btn-ai { background: linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%); transition: all 0.3s; }
         .btn-ai:hover { transform: translateY(-2px); box-shadow: 0 10px 15px -3px rgba(139, 92, 246, 0.4); }
-    </style>
+   </style>
 </head>
 <body>
 
@@ -102,7 +114,7 @@
             <p>Follow TikTok Sy: <b>King Mamank</b>.</p>
             <p class="bg-emerald-500/10 p-4 rounded-xl border border-emerald-500/30 text-sm md:text-base text-emerald-50 text-left">
                 <i class="fa-solid fa-robot mr-2 text-emerald-400"></i> 
-                <b class="text-white"></b> Utk cetak laporan yg optimal, gunakan  <b>Google Chrome.</b> Jika Generating AI gagal krn trafik padat, coba lagi nanti. <b>Jgn</b> <i>refresh</i>.
+                <b class="text-white"></b> Utk cetak laporan yg optimal, gunakan <b>Google Chrome.</b> Jika Generating AI gagal krn trafik padat, coba lagi nanti. <b>Jgn</b> <i>refresh</i>.
             </p>
         </div>
 
@@ -143,33 +155,33 @@
                 <label>Jabatan</label>
                 <select id="in_jabatan" onchange="updateLaporan()">
                      <option value="">-- Pilih Jabatan --</option>
-           <option value="Penyuluh Pertanian Pemula">Penyuluh Pertanian Pemula</option>
-                        <option value="Penyuluh Pertanian Terampil">Penyuluh Pertanian Terampil</option>
-                        <option value="Penyuluh Pertanian Mahir">Penyuluh Pertanian Mahir</option>
-                        <option value="Penyuluh Pertanian Penyelia">Penyuluh Pertanian Penyelia</option>
-                        <option value="Penyuluh Pertanian Ahli Pertama">Penyuluh Pertanian Ahli Pertama</option>
-                        <option value="Penyuluh Pertanian Ahli Muda">Penyuluh Pertanian Ahli Muda</option>
-                        <option value="Penyuluh Pertanian Ahli Madya">Penyuluh Pertanian Ahli Madya</option>
-                        <option value="Penyuluh Pertanian Ahli Utama">Penyuluh Pertanian Ahli Utama</option>
+                     <option value="Penyuluh Pertanian Pemula">Penyuluh Pertanian Pemula</option>
+                     <option value="Penyuluh Pertanian Terampil">Penyuluh Pertanian Terampil</option>
+                     <option value="Penyuluh Pertanian Mahir">Penyuluh Pertanian Mahir</option>
+                     <option value="Penyuluh Pertanian Penyelia">Penyuluh Pertanian Penyelia</option>
+                     <option value="Penyuluh Pertanian Ahli Pertama">Penyuluh Pertanian Ahli Pertama</option>
+                     <option value="Penyuluh Pertanian Ahli Muda">Penyuluh Pertanian Ahli Muda</option>
+                     <option value="Penyuluh Pertanian Ahli Madya">Penyuluh Pertanian Ahli Madya</option>
+                     <option value="Penyuluh Pertanian Ahli Utama">Penyuluh Pertanian Ahli Utama</option>
                 </select>
             </div>
             <div class="input-group">
                 <label>Pangkat/Golongan</label>
                 <select id="in_pangkat" onchange="updateLaporan()">
                    <option value="">-- Pilih Pangkat --</option>
-           <option value="Pengatur Muda (II/a)">Pengatur Muda (II/a)</option>
-                    <option value="Pengatur Muda Tk. I (II/b)">Pengatur Muda Tk. I (II/b)</option>
-                    <option value="Pengatur (II/c)">Pengatur (II/c)</option>
-                    <option value="Pengatur Tk. I (II/d)">Pengatur Tk. I (II/d)</option>
-                    <option value="Penata Muda, III/a">Penata Muda, III/a</option>
-                    <option value="Penata Muda Tk. I, III/b">Penata Muda Tk. I, III/b</option>
-                    <option value="Penata, III/c">Penata, III/c</option>
-                    <option value="Penata Tk. I, III/d">Penata Tk. I, III/d</option>
-                    <option value="Pembina (IV/a)">Pembina (IV/a)</option>
-                    <option value="Pembina Tk. I (IV/b)">Pembina Tk. I (IV/b)</option>
-                    <option value="Pembina Utama Muda (IV/c)">Pembina Utama Muda (IV/c)</option>
-                    <option value="Pembina Utama Madya (IV/d)">Pembina Utama Madya (IV/d)</option>
-                    <option value="Pembina Utama (IV/e)">Pembina Utama (IV/e)</option>
+                   <option value="Pengatur Muda (II/a)">Pengatur Muda (II/a)</option>
+                   <option value="Pengatur Muda Tk. I (II/b)">Pengatur Muda Tk. I (II/b)</option>
+                   <option value="Pengatur (II/c)">Pengatur (II/c)</option>
+                   <option value="Pengatur Tk. I (II/d)">Pengatur Tk. I (II/d)</option>
+                   <option value="Penata Muda, III/a">Penata Muda, III/a</option>
+                   <option value="Penata Muda Tk. I, III/b">Penata Muda Tk. I, III/b</option>
+                   <option value="Penata, III/c">Penata, III/c</option>
+                   <option value="Penata Tk. I, III/d">Penata Tk. I, III/d</option>
+                   <option value="Pembina (IV/a)">Pembina (IV/a)</option>
+                   <option value="Pembina Tk. I (IV/b)">Pembina Tk. I (IV/b)</option>
+                   <option value="Pembina Utama Muda (IV/c)">Pembina Utama Muda (IV/c)</option>
+                   <option value="Pembina Utama Madya (IV/d)">Pembina Utama Madya (IV/d)</option>
+                   <option value="Pembina Utama (IV/e)">Pembina Utama (IV/e)</option>
                 </select>
             </div>
             <div class="input-group md:col-span-2"><label>Unit Kerja</label><input type="text" id="in_unit" oninput="updateLaporan()" value="Kementerian Pertanian RI"></div>
@@ -184,7 +196,7 @@
                 <label>Nama Kegiatan</label>
                 <select id="in_kegiatan" onchange="updateLaporan()">
                     <option value="">-- Pilih Kegiatan --</option>
-           <option value="Pendampingan Peningkatan Produksi Hortikultura">Pendampingan Peningkatan Produksi Hortikultura</option>
+                    <option value="Pendampingan Peningkatan Produksi Hortikultura">Pendampingan Peningkatan Produksi Hortikultura</option>
                     <option value="Pendampingan Hilirisasi Perkebunan">Pendampingan Hilirisasi Perkebunan</option>
                     <option value="Pendampingan Penyediaan Benih Dan Bibit Serta Peningkatan Produksi Ternak">Pendampingan Penyediaan Benih Dan Bibit Serta Peningkatan Produksi Ternak</option>
                     <option value="Pendampingan Pemanfaatan Alat dan Mesin Pertanian">Pendampingan Pemanfaatan Alat dan Mesin Pertanian</option>
@@ -196,10 +208,9 @@
                     <option value="Penderasan Materi & Kelompencapir Digital">Penderasan Materi & Kelompencapir Digital</option>
                     <option value="Pengawalan CPCL Bantuan Pemerintah">Pengawalan CPCL Bantuan Pemerintah</option>
                     <option value="Pelaksanaan Tugas Fungsi Penyuluhan">Pelaksanaan Tugas Fungsi Penyuluhan</option>
-                        <option value="Laporan Data Statistik Tanaman Perkebunan">Laporan Data Statistik Tanaman Perkebunan</option>
-                        <option value="Laporan Data Statistik Tanaman Pangan">Laporan Data Statistik Tanaman Pangan</option>
-                            <option value="Laporan Data Statistik Tanaman Hortikultura">Laporan Data Statistik Tanaman Hortikultura</option>
-                     
+                    <option value="Laporan Data Statistik Tanaman Perkebunan">Laporan Data Statistik Tanaman Perkebunan</option>
+                    <option value="Laporan Data Statistik Tanaman Pangan">Laporan Data Statistik Tanaman Pangan</option>
+                    <option value="Laporan Data Statistik Tanaman Hortikultura">Laporan Data Statistik Tanaman Hortikultura</option>
                 </select>
             </div>
             <div id="wrap_tgl_bulanan" class="input-group">
@@ -221,9 +232,10 @@
             <div class="input-group"><label>Lokasi (Desa/Poktan)</label><input type="text" id="in_lokasi" oninput="updateLaporan()" placeholder="Cth: Lahan Poktan Sukamaju"></div>
             <div class="input-group"><label>Jumlah Peserta</label><input type="text" id="in_peserta" oninput="updateLaporan()" placeholder="Cth: 15 Orang"></div>
             <div id="wrap_foto" class="input-group md:col-span-2">
-    <label>Foto Kegiatan Bulanan (wajib)</label>
-    <input type="file" id="in_foto_file" onchange="handleFoto(this)" class="file:bg-emerald-600 file:text-white file:rounded-lg file:border-0 file:px-4 file:py-2">
-</div>
+                <label>Foto Kegiatan Bulanan (wajib)</label>
+                <input type="file" id="in_foto_file" onchange="handleFoto(this)" class="file:bg-emerald-600 file:text-white file:rounded-lg file:border-0 file:px-4 file:py-2">
+            </div>
+        </div>
     </div>
 
     <div class="input-card border-purple-500/30">
@@ -296,16 +308,16 @@
 
         <div class="sig-section flex justify-between px-4 mt-10">
             <div class="text-center w-1/2">
-    Mengetahui:<br>
-    <span id="out_koor_jabatan">Koordinator BPP ...</span>
-    <div class="h-20 flex items-center justify-center">
-        <img id="out_img_ttd_koor" class="max-h-20 hidden">
-    </div>
-    <div id="out_koor_nama" class="font-bold underline uppercase">Nama Pejabat</div>
-    NIP. <span id="out_koor_nip"></span>
-</div>
+                Mengetahui:<br>
+                <span id="out_koor_jabatan_display">Koordinator BPP ...</span>
+                <div class="h-20 flex items-center justify-center">
+                    <img id="out_img_ttd_koor" class="max-h-20 hidden">
+                </div>
+                <div id="out_koor_nama_display" class="font-bold underline uppercase">Nama Pejabat</div>
+                NIP. <span id="out_koor_nip_display"></span>
+            </div>
             <div class="text-center w-1/2">
-                <span id="out_tempat_ttd">Bola</span>, <span id="out_tgl_ttd"></span><br>
+                <span id="out_tempat_ttd_display">Bola</span>, <span id="out_tgl_ttd"></span><br>
                 Penyuluh Pertanian
                 <div class="h-20 flex items-center justify-center"><img id="out_img_ttd_ppl" class="max-h-20 hidden"></div>
                 <div id="sig_nama" class="font-bold underline uppercase"></div>
@@ -316,12 +328,24 @@
 </div>
 
 <script>
-        // Daftar NIP yang tidak diizinkan menggunakan sistem
+// --- JAVASCRIPT START ---
+
 const blacklistNIP = ["199409042020122001", "19940904 202012 2 001"];
-        function closeWarning() {
-            document.getElementById('browser-warning').style.display = 'none';
-        }
-       function safePrint() {
+
+document.addEventListener('DOMContentLoaded', () => {
+    // Set default data
+    document.getElementById('in_nama').placeholder = "Nama Lengkap";
+    document.getElementById('in_tgl_ttd_manual').valueAsDate = new Date();
+    document.getElementById('in_tgl_kegiatan').valueAsDate = new Date();
+    updateLaporan();
+});
+
+function closeWarning() {
+    const warning = document.getElementById('browser-warning');
+    if(warning) warning.style.display = 'none';
+}
+
+function safePrint() {
     const userNIP = document.getElementById('in_nip').value.trim();
     const fotoInput = document.getElementById('in_foto_file');
     const tipeLaporan = document.getElementById('in_tipe_laporan').value;
@@ -331,7 +355,6 @@ const blacklistNIP = ["199409042020122001", "19940904 202012 2 001"];
         return;
     }
 
-    // Validasi: Jika bulanan, cek apakah foto sudah diupload
     if (tipeLaporan === "bulanan" && (!fotoInput.files || fotoInput.files.length === 0)) {
         alert("⚠️ Untuk Laporan Bulanan, Anda wajib mengupload foto kegiatan.");
         return;
@@ -339,40 +362,42 @@ const blacklistNIP = ["199409042020122001", "19940904 202012 2 001"];
 
     window.print();
 }
-                function updateDataPenyuluh() {
-            const nama = document.getElementById("in_nama").value;
-            const nipField = document.getElementById("in_nip");
-            if (dataPenyuluh[nama]) { nipField.value = dataPenyuluh[nama].nip; } 
-            else if (nama === "") { nipField.value = ""; }
-            updateLaporan();
-        }
 
-        function handleFoto(input) {
-            const container = document.getElementById('foto_container');
-            const img = document.getElementById('img_preview');
-            if (input.files && input.files[0]) {
-                const reader = new FileReader();
-                reader.onload = (e) => { img.src = e.target.result; container.classList.remove('hidden-element'); };
-                reader.readAsDataURL(input.files[0]);
-            } else { container.classList.add('hidden-element'); }
-        }
+function handleFoto(input) {
+    const container = document.getElementById('foto_container');
+    const img = document.getElementById('img_preview');
+    if (input.files && input.files[0]) {
+        const reader = new FileReader();
+        reader.onload = (e) => { 
+            img.src = e.target.result; 
+            container.classList.remove('hidden-element'); 
+        };
+        reader.readAsDataURL(input.files[0]);
+    } else { 
+        container.classList.add('hidden-element'); 
+    }
+}
 
-        function handleTTD(input, targetId) {
-            const img = document.getElementById(targetId);
-            if (input.files && input.files[0]) {
-                const reader = new FileReader();
-                reader.onload = (e) => { img.src = e.target.result; img.classList.remove('hidden'); };
-                reader.readAsDataURL(input.files[0]);
-            } else { img.classList.add('hidden'); }
-        }
+function handleTTD(input, targetId) {
+    const img = document.getElementById(targetId);
+    if (input.files && input.files[0]) {
+        const reader = new FileReader();
+        reader.onload = (e) => { 
+            img.src = e.target.result; 
+            img.classList.remove('hidden'); 
+        };
+        reader.readAsDataURL(input.files[0]);
+    } else { 
+        img.classList.add('hidden'); 
+    }
+}
 
-        function formatTanggal(tglString) {
-            if(!tglString) return "-";
-            const d = new Date(tglString);
-            return d.toLocaleDateString('id-ID', { day: '2-digit', month: 'long', year: 'numeric' });
-        }
+function formatTanggal(tglString) {
+    if(!tglString) return "-";
+    const d = new Date(tglString);
+    return d.toLocaleDateString('id-ID', { day: '2-digit', month: 'long', year: 'numeric' });
+}
 
-       // Fungsi untuk ganti tampilan input berdasarkan pilihan
 function toggleTipeLaporan() {
     const tipe = document.getElementById("in_tipe_laporan").value;
     const wrapBulanan = document.getElementById("wrap_tgl_bulanan");
@@ -388,78 +413,82 @@ function toggleTipeLaporan() {
         wrapBulanan.classList.add("hidden-element");
         wrapTriwulan.classList.remove("hidden-element");
         wrapFoto.classList.add("hidden-element");
-        // Sembunyikan preview foto di kertas laporan jika pilih triwulan
         fotoContainer.classList.add('hidden-element');
     }
     updateLaporan();
 }
 
-// Update fungsi updateLaporan yang lama
 function updateLaporan() {
-    const fields = ['nama', 'nip', 'pangkat', 'jabatan', 'unit', 'kegiatan', 'lokasi', 'peserta', 'tempat_ttd', 'hasil', 'koor_nama', 'koor_nip', 'koor_jabatan', 'dasar'];
-    
-    // Logika Waktu Laporan
-    const tipe = document.getElementById('in_tipe_laporan').value;
-    let textWaktu = "-";
+    const mapping = {
+        'in_nama': ['out_nama', 'sig_nama'],
+        'in_nip': ['out_nip', 'sig_nip'],
+        'in_pangkat': ['out_pangkat'],
+        'in_jabatan': ['out_jabatan'],
+        'in_unit': ['out_unit'],
+        'in_dasar': ['out_dasar'],
+        'in_kegiatan': ['out_kegiatan', 'out_judul_kegiatan'],
+        'in_lokasi': ['out_lokasi'],
+        'in_peserta': ['out_peserta'],
+        'in_hasil': ['out_hasil'],
+        'in_tempat_ttd': ['out_tempat_ttd_display'],
+        'in_koor_nama': ['out_koor_nama_display'],
+        'in_koor_nip': ['out_koor_nip_display'],
+        'in_koor_jabatan': ['out_koor_jabatan_display']
+    };
 
-    if (tipe === "bulanan") {
-        const tglValue = document.getElementById('in_tgl_kegiatan').value;
-        textWaktu = formatTanggal(tglValue);
-    } else {
-        const periode = document.getElementById('in_periode_triwulan').value;
-        const tahun = document.getElementById('in_tahun_triwulan').value;
-        textWaktu = periode + " " + tahun;
+    for (let inputId in mapping) {
+        const inputEl = document.getElementById(inputId);
+        if (!inputEl) continue;
+        
+        const val = inputEl.value || "...";
+        mapping[inputId].forEach(outputId => {
+            const el = document.getElementById(outputId);
+            if (el) {
+                el.innerText = (outputId === 'out_judul_kegiatan') ? val.toUpperCase() : val;
+            }
+        });
     }
 
-    const tglTTD = document.getElementById('in_tgl_ttd_manual').value;
+    const tipe = document.getElementById('in_tipe_laporan').value;
+    let tglTeks = "-";
+    if (tipe === "bulanan") {
+        tglTeks = formatTanggal(document.getElementById('in_tgl_kegiatan').value);
+    } else {
+        tglTeks = document.getElementById('in_periode_triwulan').value + " " + document.getElementById('in_tahun_triwulan').value;
+    }
+    document.getElementById('out_tgl_kegiatan').innerText = tglTeks;
+    document.getElementById('out_tgl_ttd').innerText = formatTanggal(document.getElementById('in_tgl_ttd_manual').value);
 
-    fields.forEach(f => {
-        const val = document.getElementById('in_' + f)?.value || "-";
-        if (document.getElementById('out_' + f)) document.getElementById('out_' + f).innerText = val;
-        if(f === 'nama') document.getElementById('sig_nama').innerText = val;
-        if(f === 'nip') document.getElementById('sig_nip').innerText = val;
-        if(f === 'kegiatan') document.getElementById('out_judul_kegiatan').innerText = val.toUpperCase();
+    renderListToPrint('in_masalah', 'out_masalah');
+    renderListToPrint('in_upaya', 'out_upaya');
+}
+
+function renderListToPrint(inId, outId) {
+    const input = document.getElementById(inId).value;
+    const output = document.getElementById(outId);
+    if (!output) return;
+    
+    output.innerHTML = "";
+    input.split('\n').filter(line => line.trim() !== "").forEach(line => {
+        const li = document.createElement('li');
+        li.innerText = line;
+        output.appendChild(li);
     });
-
-    // Menampilkan ke Preview Laporan
-    document.getElementById('out_tgl_kegiatan').innerText = textWaktu;
-    document.getElementById('out_tgl_ttd').innerText = formatTanggal(tglTTD);
-
-    const renderList = (inId, outId) => {
-        const outEl = document.getElementById(outId);
-        const inEl = document.getElementById(inId);
-        if(!outEl || !inEl) return;
-        outEl.innerHTML = "";
-        inEl.value.split('\n').filter(t => t.trim() !== "").forEach(t => {
-            const li = document.createElement('li'); li.innerText = t; outEl.appendChild(li);
-        });
-    };
-    renderList('in_masalah', 'out_masalah');
-    renderList('in_upaya', 'out_upaya');
 }
 
 function sync() {
     const nipInput = document.getElementById('in_nip');
     const isBlacklisted = blacklistNIP.includes(nipInput.value.trim());
-    
-    if (isBlacklisted) {
-        nipInput.style.borderColor = "#ff4d4d"; // Merah terang
-        nipInput.style.color = "#ff4d4d";
-        nipInput.style.backgroundColor = "rgba(255, 0, 0, 0.1)";
-    } else {
-        nipInput.style.borderColor = ""; 
-        nipInput.style.color = "";
-        nipInput.style.backgroundColor = "";
-    }
+    nipInput.style.borderColor = isBlacklisted ? "#ff4d4d" : "";
+    nipInput.style.backgroundColor = isBlacklisted ? "rgba(255, 0, 0, 0.1)" : "";
 }
-// Fungsi generateAI yang diperbarui agar tidak menimpa kolom masalah
+
 async function generateAI() {
     const tipeLaporan = document.getElementById('in_tipe_laporan').value;
     const fotoInput = document.getElementById('in_foto_file');
 
-    // HANYA cek foto jika laporannya Bulanan
     if (tipeLaporan === "bulanan" && (!fotoInput.files || fotoInput.files.length === 0)) {
-        alert("Silakan upload foto kegiatan terlebih dahulu sebelum membuat narasi AI.");
+        alert("Silakan upload foto kegiatan terlebih dahulu.");
         return;
     }
     
@@ -468,23 +497,17 @@ async function generateAI() {
     const kegiatan = document.getElementById('in_kegiatan').value;
     const lokasi = document.getElementById('in_lokasi').value;
     const masalah = document.getElementById('in_masalah').value;
-    const key = "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"; // Ganti dengan API Key yang valid
+    const key = "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"; 
 
-    // Validasi agar input tidak boleh kosong
-    if (!kegiatan) return alert("Silakan pilih JENIS KEGIATAN terlebih dahulu!");
-    if (!lokasi) return alert("Silakan isi LOKASI kegiatan!");
-    if (!masalah.trim()) return alert("Silakan isi kolom PERMASALAHAN terlebih dahulu agar AI bisa memberikan solusi yang akurat!");
+    if (!kegiatan || !lokasi || !masalah.trim()) {
+        alert("Lengkapi Jenis Kegiatan, Lokasi, dan Permasalahan!");
+        return;
+    }
     
     btn.disabled = true; 
     loader.classList.remove('hidden');
-    btn.classList.add('opacity-50', 'cursor-not-allowed');
 
-    const promptUser = `Buat laporan formal PPL. 
-    Kegiatan: ${kegiatan} 
-    Lokasi: ${lokasi}. 
-    Permasalahan yang ditemukan: ${masalah}. 
-    Berikan deskripsi hasil pekerjaan yang formal (bahasa baku) dan poin-poin upaya tindak lanjut yang konkret. 
-    Format JSON: {"deskripsi":"", "upaya":[]}`;
+    const promptUser = `Buat laporan formal PPL. Kegiatan: ${kegiatan} Lokasi: ${lokasi}. Permasalahan: ${masalah}. Berikan deskripsi hasil pekerjaan formal dan poin-poin upaya tindak lanjut. Format JSON: {"deskripsi":"", "upaya":[]}`;
 
     try {
         const res = await fetch("https://api.groq.com/openai/v1/chat/completions", {
@@ -497,22 +520,18 @@ async function generateAI() {
             })
         });
 
-        if (!res.ok) throw new Error("API Error");
-
         const data = await res.json();
         const result = JSON.parse(data.choices[0].message.content);
 
         document.getElementById('in_hasil').value = result.deskripsi;
         document.getElementById('in_upaya').value = result.upaya.join('\n');
-        
         updateLaporan();
         alert("✅ Deskripsi dan Tindak Lanjut berhasil dibuat!");
     } catch (e) { 
-        alert("Gagal terhubung ke AI. Pastikan koneksi internet stabil atau API Key benar."); 
+        alert("Gagal AI. Cek koneksi/API Key."); 
     } finally { 
         btn.disabled = false; 
         loader.classList.add('hidden'); 
-        btn.classList.remove('opacity-50', 'cursor-not-allowed');
     }
 }
 </script>
