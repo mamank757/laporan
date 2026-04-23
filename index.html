@@ -220,8 +220,10 @@
             </div>
             <div class="input-group"><label>Lokasi (Desa/Poktan)</label><input type="text" id="in_lokasi" oninput="updateLaporan()" placeholder="Cth: Lahan Poktan Sukamaju"></div>
             <div class="input-group"><label>Jumlah Peserta</label><input type="text" id="in_peserta" oninput="updateLaporan()" placeholder="Cth: 15 Orang"></div>
-            <div class="input-group md:col-span-2"><label>Foto Kegiatan (Opsional)</label><input type="file" onchange="handleFoto(this)" class="file:bg-emerald-600 file:text-white file:rounded-lg file:border-0 file:px-4 file:py-2"></div>
-        </div>
+            <div id="wrap_foto" class="input-group md:col-span-2">
+    <label>Foto Kegiatan Bulanan (wajib)</label>
+    <input type="file" id="in_foto_file" onchange="handleFoto(this)" class="file:bg-emerald-600 file:text-white file:rounded-lg file:border-0 file:px-4 file:py-2">
+</div>
     </div>
 
     <div class="input-card border-purple-500/30">
@@ -319,12 +321,22 @@ const blacklistNIP = ["199409042020122001", "19940904 202012 2 001"];
         function closeWarning() {
             document.getElementById('browser-warning').style.display = 'none';
         }
-        function safePrint() {
+       function safePrint() {
     const userNIP = document.getElementById('in_nip').value.trim();
+    const fotoInput = document.getElementById('in_foto_file');
+    const tipeLaporan = document.getElementById('in_tipe_laporan').value;
+
     if (blacklistNIP.includes(userNIP)) {
         alert("Akses NIP Ditolak!");
         return;
     }
+
+    // Validasi: Jika bulanan, cek apakah foto sudah diupload
+    if (tipeLaporan === "bulanan" && (!fotoInput.files || fotoInput.files.length === 0)) {
+        alert("⚠️ Untuk Laporan Bulanan, Anda wajib mengupload foto kegiatan.");
+        return;
+    }
+
     window.print();
 }
                 function updateDataPenyuluh() {
@@ -365,13 +377,19 @@ function toggleTipeLaporan() {
     const tipe = document.getElementById("in_tipe_laporan").value;
     const wrapBulanan = document.getElementById("wrap_tgl_bulanan");
     const wrapTriwulan = document.getElementById("wrap_tgl_triwulan");
+    const wrapFoto = document.getElementById("wrap_foto");
+    const fotoContainer = document.getElementById('foto_container');
 
     if (tipe === "bulanan") {
         wrapBulanan.classList.remove("hidden-element");
         wrapTriwulan.classList.add("hidden-element");
+        wrapFoto.classList.remove("hidden-element");
     } else {
         wrapBulanan.classList.add("hidden-element");
         wrapTriwulan.classList.remove("hidden-element");
+        wrapFoto.classList.add("hidden-element");
+        // Sembunyikan preview foto di kertas laporan jika pilih triwulan
+        fotoContainer.classList.add('hidden-element');
     }
     updateLaporan();
 }
@@ -436,12 +454,13 @@ function sync() {
 }
 // Fungsi generateAI yang diperbarui agar tidak menimpa kolom masalah
 async function generateAI() {
-    const userNIP = document.getElementById('in_nip').value.trim();
+    const tipeLaporan = document.getElementById('in_tipe_laporan').value;
+    const fotoInput = document.getElementById('in_foto_file');
 
-    // Validasi Cek Blacklist
-    if (blacklistNIP.includes(userNIP)) {
-        alert("Akses NIP Ditolak!");
-        return; // Menghentikan proses generator
+    // HANYA cek foto jika laporannya Bulanan
+    if (tipeLaporan === "bulanan" && (!fotoInput.files || fotoInput.files.length === 0)) {
+        alert("Silakan upload foto kegiatan terlebih dahulu sebelum membuat narasi AI.");
+        return;
     }
     
     const btn = document.getElementById('btn-ai');
