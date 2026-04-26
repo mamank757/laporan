@@ -78,25 +78,44 @@
         /* UPDATE PADA BAGIAN PRINT SETTINGS */
 @media print {
     @page { 
-        size: 215mm 330mm; /* Ukuran F4 Standar */
+        size: 215mm 330mm; 
         margin: 15mm; 
     }
+    
     body { background: white; }
+    
     .no-print, .floating-container, #browser-warning, .max-w-5xl, header, .input-card, button { 
         display: none !important; 
     }
+
     .report-container { 
         display: block !important; 
         padding: 0 !important; 
         margin: 0 !important;
-        background: white !important;
     }
+
     .report-page {
         box-shadow: none !important;
         margin: 0 !important;
         padding: 0 !important;
         width: 100% !important;
-        border: none !important;
+        display: block !important; /* Pastikan ini block agar break-inside bekerja */
+    }
+
+    /* Memastikan blok tanda tangan tidak terpisah */
+    .sig-section {
+        display: flex !important; 
+        justify-content: space-between;
+        page-break-inside: avoid !important; /* Untuk Chrome & Firefox */
+        break-inside: avoid !important;      /* Standar modern */
+        margin-top: 30px;
+        position: relative;
+    }
+
+    /* Mencegah poin-poin terpotong */
+    #out_masalah li, #out_upaya li {
+        page-break-inside: avoid;
+        break-inside: avoid;
     }
 }
         .hidden-element { display: none !important; }
@@ -306,23 +325,26 @@
         <ul id="out_upaya" class="ml-12 list-disc text-sm mb-10"></ul>
 
         <div class="sig-section flex justify-between px-4 mt-10">
-            <div class="text-center w-1/2">
-                Mengetahui:<br>
-                <span id="out_koor_jabatan_display">Koordinator BPP ...</span>
-                <div class="h-20 flex items-center justify-center">
-                    <img id="out_img_ttd_koor" class="max-h-20 hidden">
-                </div>
-                <div id="out_koor_nama_display" class="font-bold underline uppercase">Nama Pejabat</div>
-                NIP. <span id="out_koor_nip_display"></span>
-            </div>
-            <div class="text-center w-1/2">
-                <span id="out_tempat_ttd_display">Bola</span>, <span id="out_tgl_ttd"></span><br>
-                Penyuluh Pertanian
-                <div class="h-20 flex items-center justify-center"><img id="out_img_ttd_ppl" class="max-h-20 hidden"></div>
-                <div id="sig_nama" class="font-bold underline uppercase"></div>
-                NIP. <span id="sig_nip"></span>
-            </div>
+    <div class="text-center w-1/2" style="break-inside: avoid;">
+        Mengetahui:<br>
+        <span id="out_koor_jabatan_display">Koordinator BPP</span>
+        <div class="h-20 flex items-center justify-center">
+            <img id="out_img_ttd_koor" class="max-h-20 hidden">
         </div>
+        <div id="out_koor_nama_display" class="font-bold underline uppercase">Samaila</div>
+        NIP. <span id="out_koor_nip_display"></span>
+    </div>
+
+    <div class="text-center w-1/2" style="break-inside: avoid;">
+        <span id="out_tempat_ttd_display">Bola</span>, <span id="out_tgl_ttd"></span><br>
+        Penyuluh Pertanian
+        <div class="h-20 flex items-center justify-center">
+            <img id="out_img_ttd_ppl" class="max-h-20 hidden">
+        </div>
+        <div id="sig_nama" class="font-bold underline uppercase"></div>
+        NIP. <span id="sig_nip"></span>
+    </div>
+</div>
     </div>
 </div>
 
