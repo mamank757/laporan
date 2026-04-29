@@ -372,7 +372,7 @@ function safePrint() {
     const tipeLaporan = document.getElementById('in_tipe_laporan').value;
 
     if (blacklistNIP.includes(userNIP)) {
-        alert("Akses NIP Ditolak!");
+        alert("Akses Anda Ditolak!");
         return;
     }
 
@@ -549,7 +549,7 @@ async function generateAI() {
         updateLaporan();
         alert("✅ Deskripsi dan Tindak Lanjut berhasil dibuat!");
     } catch (e) { 
-        alert("Gagal AI. Cek koneksi/API Key."); 
+        alert("Gagal Generate AI karena trafik padat/kode salah. Coba lagi nanti atau Hubungi Admin."); 
     } finally { 
         btn.disabled = false; 
         loader.classList.add('hidden'); 
