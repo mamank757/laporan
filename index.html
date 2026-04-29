@@ -512,47 +512,51 @@ async function generateAI() {
         alert("Silakan upload foto kegiatan terlebih dahulu.");
         return;
     }
-    
+
     const btn = document.getElementById('btn-ai');
     const loader = document.getElementById('loader');
     const kegiatan = document.getElementById('in_kegiatan').value;
     const lokasi = document.getElementById('in_lokasi').value;
     const masalah = document.getElementById('in_masalah').value;
-    const key = "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"; 
 
     if (!kegiatan || !lokasi || !masalah.trim()) {
         alert("Lengkapi Jenis Kegiatan, Lokasi, dan Permasalahan!");
         return;
     }
-    
-    btn.disabled = true; 
+
+    btn.disabled = true;
     loader.classList.remove('hidden');
 
-    const promptUser = `Buat laporan formal PPL. Kegiatan: ${kegiatan} Lokasi: ${lokasi}. Permasalahan: ${masalah}. Berikan deskripsi hasil pekerjaan formal dan poin-poin upaya tindak lanjut. Format JSON: {"deskripsi":"", "upaya":[]}`;
+    const promptUser = `Buat laporan formal PPL. 
+    Kegiatan: ${kegiatan}. 
+    Lokasi: ${lokasi}. 
+    Permasalahan: ${masalah}. 
+    Format JSON: {"deskripsi":"", "upaya":[]}`;
+
+    // 🔥 GANTI DENGAN URL WEB APP KAMU
+    const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxhhydL4TZ9kn_57qPdSVIAtdYeAjioXDOdXohm6-JXwPslP67H-nJMjtNcOAdsBjXGqg/exec";
 
     try {
-        const res = await fetch("https://api.groq.com/openai/v1/chat/completions", {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${key}` },
-            body: JSON.stringify({ 
-                model: "llama-3.3-70b-versatile", 
-                messages: [{ role: "user", content: promptUser }],
-                response_format: { type: "json_object" }
-            })
+        const res = await fetch(WEB_APP_URL, {
+            method: "POST",
+            body: JSON.stringify({ prompt: promptUser })
         });
 
         const data = await res.json();
-        const result = JSON.parse(data.choices[0].message.content);
+
+        const result = JSON.parse(data.result);
 
         document.getElementById('in_hasil').value = result.deskripsi;
         document.getElementById('in_upaya').value = result.upaya.join('\n');
+
         updateLaporan();
-        alert("✅ Deskripsi dan Tindak Lanjut berhasil dibuat!");
-    } catch (e) { 
-        alert("Gagal Generate AI karena trafik padat/kode salah. Coba lagi nanti atau Hubungi Admin."); 
-    } finally { 
-        btn.disabled = false; 
-        loader.classList.add('hidden'); 
+        alert("✅ Laporan Berhasil Disusun oleh AI!");
+    } catch (e) {
+        console.error(e);
+        alert("❌ Gagal konek ke Apps Script.");
+    } finally {
+        btn.disabled = false;
+        loader.classList.add('hidden');
     }
 }
 </script>
