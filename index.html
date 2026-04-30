@@ -548,14 +548,20 @@ async function generateAI() {
     console.log("TYPE result:", typeof data.result);
     console.log("ISI result:", data.result);
 
-        let result = data.result;
+        let result = data.result ?? data;
 
+// handle kalau string
 if (typeof result === "string") {
     result = JSON.parse(result);
 }
 
-        document.getElementById('in_hasil').value = result.deskripsi;
-        document.getElementById('in_upaya').value = result.upaya.join('\n');
+// amanin field
+const deskripsi = result.deskripsi || "";
+const upaya = Array.isArray(result.upaya) ? result.upaya : [];
+
+// inject ke input
+document.getElementById('in_hasil').value = deskripsi;
+document.getElementById('in_upaya').value = upaya.join('\n');
 
         updateLaporan();
         alert("✅ Laporan Berhasil Disusun oleh AI!");
