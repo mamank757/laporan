@@ -544,7 +544,15 @@ async function generateAI() {
 
         const data = await res.json();
 
-        const result = JSON.parse(data.result);
+        console.log("FULL DATA:", data);
+    console.log("TYPE result:", typeof data.result);
+    console.log("ISI result:", data.result);
+
+        let result = data.result;
+
+if (typeof result === "string") {
+    result = JSON.parse(result);
+}
 
         document.getElementById('in_hasil').value = result.deskripsi;
         document.getElementById('in_upaya').value = result.upaya.join('\n');
