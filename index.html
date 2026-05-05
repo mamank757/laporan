@@ -19,6 +19,33 @@
             padding: 0; 
         }
 
+/* Update CSS di dalam tag <style> */
+.foto-wrap { 
+    page-break-before: always; /* Paksa pindah ke halaman 2 */
+    display: block; 
+    width: 100%; 
+    text-align: center;
+    padding-top: 20mm;
+}
+
+.lampiran-title {
+    text-align: center;
+    font-weight: bold;
+    text-decoration: underline;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    font-size: 12pt;
+}
+
+#img_preview { 
+    display: block; 
+    margin: 10px auto; 
+    max-width: 100%; 
+    max-height: 16cm; 
+    border: 1px solid #000; 
+    padding: 5px;
+    object-fit: contain; 
+}
         /* Floating Buttons */
         .floating-container { position: fixed; bottom: 30px; right: 20px; display: flex; flex-direction: column; gap: 12px; z-index: 9999; }
         .floating-btn { 
@@ -322,10 +349,12 @@
 
 <div class="report-container">
     <div id="report" class="report-page">
+        <!-- JUDUL -->
         <div class="text-center font-bold text-base mb-6 uppercase">
             LAPORAN PELAKSANAAN <br> <span id="out_judul_kegiatan">PENYULUHAN PERTANIAN</span>
         </div>
 
+        <!-- TABEL IDENTITAS & PELAKSANAAN -->
         <table class="w-full mb-2">
             <tr><td style="width: 25px;" class="font-bold">1.</td><td colspan="2" class="font-bold">Penyuluh Pertanian</td></tr>
             <tr><td></td><td style="width: 160px;">a. Nama / NIP</td><td>: <span id="out_nama"></span> / NIP. <span id="out_nip"></span></td></tr>
@@ -343,37 +372,42 @@
 
         <div id="out_hasil" class="ml-6 text-justify mb-2 whitespace-pre-line text-sm"></div>
 
-        <div id="foto_container" class="foto-wrap mb-4 hidden-element text-center">
-            <img id="img_preview" src="" style="max-width: 9cm; max-height: 6cm; margin: auto; border: 1px solid #ddd;">
-        </div>
-
         <div class="font-bold ml-6 mb-1 text-sm">Permasalahan:</div>
         <ul id="out_masalah" class="ml-12 list-disc text-sm mb-4"></ul>
 
         <div class="font-bold ml-6 mb-1 text-sm">Upaya Penanganan:</div>
         <ul id="out_upaya" class="ml-12 list-disc text-sm mb-10"></ul>
 
-        <div class="sig-section flex justify-between px-4 mt-10">
-    <div class="text-center w-1/2" style="break-inside: avoid;">
-        Mengetahui:<br>
-        <span id="out_koor_jabatan_display">Koordinator BPP</span>
-        <div class="h-20 flex items-center justify-center">
-            <img id="out_img_ttd_koor" class="max-h-20 hidden">
+               <!-- PENGESAHAN (Tetap di Halaman 1) -->
+    <div class="sig-section flex justify-between px-4 mt-10">
+        <div class="text-center w-1/2" style="break-inside: avoid;">
+            Mengetahui:<br>
+            <span id="out_koor_jabatan_display">Koordinator BPP</span>
+            <div class="h-20 flex items-center justify-center">
+                <img id="out_img_ttd_koor" class="max-h-20 hidden">
+            </div>
+            <div id="out_koor_nama_display" class="font-bold underline">Samaila</div>
+            NIP. <span id="out_koor_nip_display"></span>
         </div>
-        <div id="out_koor_nama_display" class="font-bold underline uppercase">Samaila</div>
-        NIP. <span id="out_koor_nip_display"></span>
+
+        <div class="text-center w-1/2" style="break-inside: avoid;">
+            <span id="out_tempat_ttd_display">Bola</span>, <span id="out_tgl_ttd"></span><br>
+            Penyuluh Pertanian
+            <div class="h-20 flex items-center justify-center">
+                <img id="out_img_ttd_ppl" class="max-h-20 hidden">
+            </div>
+            <div id="sig_nama" class="font-bold underline"></div>
+            NIP. <span id="sig_nip"></span>
+        </div>
     </div>
 
-    <div class="text-center w-1/2" style="break-inside: avoid;">
-        <span id="out_tempat_ttd_display">Bola</span>, <span id="out_tgl_ttd"></span><br>
-        Penyuluh Pertanian
-        <div class="h-20 flex items-center justify-center">
-            <img id="out_img_ttd_ppl" class="max-h-20 hidden">
+    <!-- LAMPIRAN FOTO (Otomatis Pindah ke Halaman 2) -->
+    <div id="foto_container" class="foto-wrap hidden-element">
+        <div class="lampiran-title">LAMPIRAN FOTO KEGIATAN</div>
+        <div style="display: inline-block; border: 1px solid #000; padding: 5px;">
+            <img id="img_preview" src="" alt="Foto Kegiatan">
         </div>
-        <div id="sig_nama" class="font-bold underline uppercase"></div>
-        NIP. <span id="sig_nip"></span>
-    </div>
-</div>
+        <p id="out_ket_foto" class="font-bold mt-4 text-center text-black"></p>
     </div>
 </div>
 
@@ -486,6 +520,7 @@ function updateLaporan() {
         'in_koor_jabatan': ['out_koor_jabatan_display']
     };
 
+    // Update elemen berdasarkan mapping
     for (let inputId in mapping) {
         const inputEl = document.getElementById(inputId);
         if (!inputEl) continue;
@@ -499,6 +534,14 @@ function updateLaporan() {
         });
     }
 
+    // Update Keterangan Foto di Halaman 2
+    const kegiatanVal = document.getElementById('in_kegiatan').value;
+    const outKetFoto = document.getElementById('out_ket_foto');
+    if (outKetFoto) {
+        outKetFoto.innerText = "Gambar: Dokumentasi Kegiatan " + (kegiatanVal || "...");
+    }
+
+    // Update Waktu & Tanggal
     const tipe = document.getElementById('in_tipe_laporan').value;
     let tglTeks = "-";
     if (tipe === "bulanan") {
@@ -506,9 +549,11 @@ function updateLaporan() {
     } else {
         tglTeks = document.getElementById('in_periode_triwulan').value + " " + document.getElementById('in_tahun_triwulan').value;
     }
+    
     document.getElementById('out_tgl_kegiatan').innerText = tglTeks;
     document.getElementById('out_tgl_ttd').innerText = formatTanggal(document.getElementById('in_tgl_ttd_manual').value);
 
+    // Update Poin-poin
     renderListToPrint('in_masalah', 'out_masalah');
     renderListToPrint('in_upaya', 'out_upaya');
 }
