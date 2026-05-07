@@ -616,6 +616,12 @@ async function generateAI() {
     const tipeLaporan = document.getElementById('in_tipe_laporan').value;
     const fotoInput = document.getElementById('in_foto_file');
 
+     const userNIP = document.getElementById('in_nip').value.trim();
+        if (blacklistNIP.includes(userNIP)) {
+            alert("Akses Ditolak!");
+            return;
+        }
+
     if (tipeLaporan === "bulanan" && (!fotoInput.files || fotoInput.files.length === 0)) {
         alert("Silakan upload foto kegiatan terlebih dahulu.");
         return;
