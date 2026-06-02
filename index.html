@@ -645,7 +645,7 @@ async function generateAI() {
     Kegiatan: ${kegiatan}. 
     Lokasi: ${lokasi}. 
     Permasalahan: ${masalah}. 
-    Format JSON: {"deskripsi":"", "upaya":[]}`;
+    Format JSON WAJIB: {"deskripsi": "teks hasil", "upaya": ["teks upaya 1", "teks upaya 2"]}`;
 
     // 🔥 GANTI DENGAN URL WEB APP KAMU
     const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzGyd-iiQ9MLkmIVKpBd0_3ZAdIpzVp_NNAWbfYDFv1bPrdZrmcDhsyCI5Rl-Osd4RipQ/exec";
@@ -679,11 +679,20 @@ if (typeof result === "string") {
 
 // amanin field
 const deskripsi = result.deskripsi || "";
-const upaya = Array.isArray(result.upaya) ? result.upaya : [];
+const upayaArray = Array.isArray(result.upaya) ? result.upaya : [];
+
+// Pengaman: Jika AI mengembalikan array of objects, kita ambil nilainya saja
+const upayaBersih = upayaArray.map(item => {
+    if (typeof item === 'object' && item !== null) {
+        // Mengambil isi teks pertama dari dalam object
+        return Object.values(item)[0]; 
+    }
+    return item; // Jika sudah string, biarkan saja
+});
 
 // inject ke input
 document.getElementById('in_hasil').value = deskripsi;
-document.getElementById('in_upaya').value = upaya.join('\n');
+document.getElementById('in_upaya').value = upayaBersih.join('\n');
 
         updateLaporan();
         alert("✅ Laporan Berhasil Disusun oleh AI!");
