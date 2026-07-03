@@ -148,6 +148,37 @@
         .hidden-element { display: none !important; }
         .btn-ai { background: linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%); transition: all 0.3s; }
         .btn-ai:hover { transform: translateY(-2px); box-shadow: 0 10px 15px -3px rgba(139, 92, 246, 0.4); }
+
+        /* === ANIMASI TOMBOL GENERATE AI SAAT PROSES === */
+        @keyframes ai-shimmer {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 200% 50%; }
+        }
+        @keyframes ai-pulse-scale {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+        }
+        .btn-ai.is-loading {
+            background: linear-gradient(90deg, #6d28d9, #a855f7, #6d28d9, #a855f7);
+            background-size: 300% 100%;
+            animation: ai-shimmer 1.2s linear infinite, ai-pulse-scale 1s ease-in-out infinite;
+            cursor: not-allowed;
+            opacity: 0.95;
+        }
+        .btn-ai:disabled {
+            pointer-events: none;
+        }
+        .ai-dots span {
+            display: inline-block;
+            animation: ai-dot-bounce 1.4s infinite ease-in-out both;
+        }
+        .ai-dots span:nth-child(1) { animation-delay: 0s; }
+        .ai-dots span:nth-child(2) { animation-delay: 0.2s; }
+        .ai-dots span:nth-child(3) { animation-delay: 0.4s; }
+        @keyframes ai-dot-bounce {
+            0%, 80%, 100% { transform: translateY(0); opacity: 0.5; }
+            40% { transform: translateY(-4px); opacity: 1; }
+        }
    </style>
 </head>
 <body>
@@ -320,7 +351,7 @@
                 <textarea id="in_masalah" oninput="updateLaporan()" class="h-24"></textarea>
             </div>
             <button onclick="generateAI()" id="btn-ai" class="w-full btn-ai text-white font-bold py-4 rounded-xl flex items-center justify-center gap-2">
-                <span id="loader" class="hidden animate-spin">🌀</span> ✨ GENERATE NARASI AI
+                <span id="btn-ai-label">✨ GENERATE NARASI AI</span>
             </button>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div class="input-group"><label>Hasil Pekerjaan (AI)</label><textarea id="in_hasil" oninput="updateLaporan()" class="h-40"></textarea></div>
@@ -628,7 +659,7 @@ async function generateAI() {
     }
 
     const btn = document.getElementById('btn-ai');
-    const loader = document.getElementById('loader');
+    const label = document.getElementById('btn-ai-label');
     const kegiatan = document.getElementById('in_kegiatan').value;
     const lokasi = document.getElementById('in_lokasi').value;
     const masalah = document.getElementById('in_masalah').value;
@@ -638,8 +669,10 @@ async function generateAI() {
         return;
     }
 
+    // === Aktifkan animasi "sedang bekerja" pada tombol ===
     btn.disabled = true;
-    loader.classList.remove('hidden');
+    btn.classList.add('is-loading');
+    label.innerHTML = '🌀 MEMPROSES AI<span class="ai-dots"><span>.</span><span>.</span><span>.</span></span>';
 
     const promptUser = `Buat laporan formal PPL. 
     Kegiatan: ${kegiatan}. 
@@ -700,8 +733,10 @@ document.getElementById('in_upaya').value = upayaBersih.join('\n');
         console.error(e);
         alert("❌ AI Gagal. Laporkan ke 081354871000.");
     } finally {
+        // === Matikan animasi & kembalikan tombol ke kondisi normal ===
         btn.disabled = false;
-        loader.classList.add('hidden');
+        btn.classList.remove('is-loading');
+        label.innerHTML = '✨ GENERATE NARASI AI';
     }
 }
 
